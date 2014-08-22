@@ -10,4 +10,7 @@
 
 @interface AuthViewController : BaseTableViewController
 
+@property NSString *firstName;
+@property NSString *lastInitial;
+
 @end

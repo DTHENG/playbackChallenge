@@ -7,9 +7,19 @@
 //
 
 #import "BaseTableViewController.h"
+#import "AuthViewController.h"
 
 @implementation BaseTableViewController
 
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    
+    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+    if ([prefs objectForKey:@"auth"] == nil &&
+            ! [self isKindOfClass:[AuthViewController class]]) {
+        [self performSegueWithIdentifier:@"authSegue" sender:self];
+    }
+}
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     

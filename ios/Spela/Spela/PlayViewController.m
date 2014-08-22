@@ -30,6 +30,16 @@
             
             UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"controls" forIndexPath:indexPath];
             
+            for (int i = 0; i < [[[cell contentView] subviews] count]; i++) {
+                id thisItem = [[[cell contentView] subviews] objectAtIndex:i];
+                if ([thisItem isKindOfClass:[UIButton class]]) {
+                    UIButton *btn = (UIButton *)thisItem;
+                    switch (btn.tag) {
+                        case 1:
+                            [btn addSubview:[self getControlImage:@"previous-active" :0]];
+                    }
+                }
+            }
             [cell addSubview:[self getControlImage:@"previous-active" :40]];
             [cell addSubview:[self getControlImage:@"play-active" :100]];
 
