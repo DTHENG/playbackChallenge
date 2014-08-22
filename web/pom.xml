@@ -1,10 +1,10 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <groupId>com.skeleton</groupId>
-    <artifactId>skeleton</artifactId>
-    <version>0.1-SNAPSHOT</version>
-    <name>Skeleton4j - a sleek, intuitive, and powerful java foundation for faster and easier web development</name>
-    <url>http://skeleton4j.com</url>
+    <groupId>com.dtheng.playback</groupId>
+    <artifactId>spela</artifactId>
+    <version>0.0</version>
+    <name>spela</name>
+    <url>http://playback.dtheng.com</url>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <googlehttpclient.version>1.17.0-rc</googlehttpclient.version>
