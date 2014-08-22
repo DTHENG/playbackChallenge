@@ -4,7 +4,7 @@
 <html>
     <head>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Uppspelning</title>
+        <title>spela</title>
         <link href="/static/css/vendor/foundation.min.css" rel="stylesheet" media="screen">
         <link href="/static/css/vendor/normalize.css" rel="stylesheet" media="screen">
         <script src="/static/js/vendor/modernizr.js"></script>
@@ -14,7 +14,7 @@
         <div style="background:#074e68;width:100%;float:left;">
             <div class="row">
                 <div class="small-12 large-12 columns">
-                    <a href="/" class="navbar-brand"><h1 style="color:#fff;">Uppspelning</h1></a>
+                    <a href="/" class="navbar-brand"><h1 style="color:#fff;text-align:center;">spela</h1></a>
                 </div>
             </div>
         </div>

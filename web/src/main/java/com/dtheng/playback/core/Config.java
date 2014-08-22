@@ -21,8 +21,8 @@ public class Config {
 
     public static Properties getProperties() {
         Properties properties = new Properties();
-        URL resource = Config.class.getResource("/uppspelning.properties");
-        File propertiesFile = new File("./src/main/resources/uppspelning.properties");
+        URL resource = Config.class.getResource("/spela.properties");
+        File propertiesFile = new File("./src/main/resources/spela.properties");
         try {
             propertiesFile = new File(resource.toURI());
         } catch (URISyntaxException e) {
