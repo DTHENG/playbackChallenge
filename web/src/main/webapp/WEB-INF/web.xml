@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns="http://java.sun.com/xml/ns/javaee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
+  ﻿"
+         version="2.5">
+
+  <!-- filters -->
+  <filter>
+    <filter-name>sampleFilter</filter-name>
+    <filter-class>com.dtheng.playback.core.SampleFilter</filter-class>
+  </filter>
+  <filter-mapping>
+    <filter-name>sampleFilter</filter-name>
+    <url-pattern>*</url-pattern>
+  </filter-mapping>
+
+  <!-- servlets -->
+  <servlet>
+    <servlet-name>sampleServlet</servlet-name>
+    <servlet-class>com.dtheng.playback.core.SampleServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>sampleServlet</servlet-name>
+    <url-pattern>/sampleServlet</url-pattern>
+  </servlet-mapping>
+
+  <welcome-file-list>
+    <welcome-file>index.jsp</welcome-file>
+  </welcome-file-list>
+
+    <error-page>
+        <error-code>404</error-code>
+        <location>/</location>
+    </error-page>
+</web-app>
