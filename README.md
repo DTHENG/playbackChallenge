@@ -2,9 +2,11 @@
 
 `v0.2`
 
-#### Usage
+=======
 
-- Authentication
+### Usage
+
+##### Authentication
 
 ```
 $ curl -XPOST http://playback.dtheng.com/api 
@@ -14,13 +16,13 @@ $ curl -XPOST http://playback.dtheng.com/api
         -d device_id='MacBook Pro'
 ```
 
-- Get
+##### Get
 
 ```
 $ curl -XGET http://playback.dtheng.com/api?user=alfredh
 ```
 
-- Update
+##### Update
 
 ```
 $ curl -XPOST http://playback.dtheng.com/api
