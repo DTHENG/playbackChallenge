@@ -57,6 +57,7 @@ $ curl -XPOST http://playback.dtheng.com/api -d update=true -d user=alfredh -d s
     },
     "state": "PLAY", // or "PAUSE"
     "position": 62,
+    "current_time": 1408817868681,
     "devices": [
         {
             "id": 1001,
