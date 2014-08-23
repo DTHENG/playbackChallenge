@@ -1,4 +1,4 @@
-package com.dtheng.playback.spela;
+package com.dtheng.playback.spela.model;
 
 public class User {
     public String firstName;

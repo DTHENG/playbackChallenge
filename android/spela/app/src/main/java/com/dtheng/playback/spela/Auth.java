@@ -1,16 +1,14 @@
 package com.dtheng.playback.spela;
 
-import android.app.Activity;
 import android.content.ContextWrapper;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
-import com.dtheng.playback.spela.R;
+import com.dtheng.playback.spela.model.User;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
