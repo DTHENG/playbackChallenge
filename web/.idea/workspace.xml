@@ -2,8 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="66ba6a4c-76bd-4e59-89c9-34f44be5f79f" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../ios/Spela/Spela/BaseTableViewController.m" afterPath="$PROJECT_DIR$/../ios/Spela/Spela/BaseTableViewController.m" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../ios/Spela/Spela/PlayViewController.m" afterPath="$PROJECT_DIR$/../ios/Spela/Spela/PlayViewController.m" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../ios/Spela/Spela.xcodeproj/project.xcworkspace/xcuserdata/danielthengvall.xcuserdatad/UserInterfaceState.xcuserstate" afterPath="$PROJECT_DIR$/../ios/Spela/Spela.xcodeproj/project.xcworkspace/xcuserdata/danielthengvall.xcuserdatad/UserInterfaceState.xcuserstate" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../ios/Spela/Spela/BaseTableViewController.m" afterPath="$PROJECT_DIR$/../ios/Spela/Spela/BaseTableViewController.m" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../ios/Spela/Spela/PlayViewController.h" afterPath="$PROJECT_DIR$/../ios/Spela/Spela/PlayViewController.h" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../README.md" afterPath="$PROJECT_DIR$/../README.md" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/dtheng/playback/model/Response.java" afterPath="$PROJECT_DIR$/src/main/java/com/dtheng/playback/model/Response.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/dtheng/playback/core/Servlet.java" afterPath="$PROJECT_DIR$/src/main/java/com/dtheng/playback/core/Servlet.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
@@ -81,8 +85,8 @@
       <file leaf-file-name="Servlet.java" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/dtheng/playback/core/Servlet.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.4064915" vertical-offset="1232" max-vertical-offset="3624">
-              <caret line="115" column="78" selection-start-line="115" selection-start-column="78" selection-end-line="115" selection-end-column="78" />
+            <state vertical-scroll-proportion="0.82843894" vertical-offset="322" max-vertical-offset="3650">
+              <caret line="66" column="33" selection-start-line="66" selection-start-column="33" selection-end-line="66" selection-end-column="33" />
               <folding />
             </state>
           </provider>
@@ -91,8 +95,8 @@
       <file leaf-file-name="Response.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/dtheng/playback/model/Response.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="829">
-              <caret line="9" column="16" selection-start-line="9" selection-start-column="16" selection-end-line="9" selection-end-column="16" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="842">
+              <caret line="14" column="29" selection-start-line="14" selection-start-column="29" selection-end-line="14" selection-end-column="29" />
               <folding />
             </state>
           </provider>
@@ -118,6 +122,19 @@
           </provider>
         </entry>
       </file>
+      <file leaf-file-name="README.md" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/../README.md">
+          <provider editor-type-id="MarkdownPreviewEditor">
+            <state />
+          </provider>
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="-14.925926" vertical-offset="364" max-vertical-offset="1608">
+              <caret line="59" column="34" selection-start-line="59" selection-start-column="34" selection-end-line="59" selection-end-column="34" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
     </leaf>
   </component>
   <component name="FindManager">
@@ -134,11 +151,11 @@
         <option value="$PROJECT_DIR$/pom.xml" />
         <option value="$PROJECT_DIR$/../design.json" />
         <option value="$PROJECT_DIR$/README.md" />
-        <option value="$PROJECT_DIR$/src/main/java/com/dtheng/playback/model/Response.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/dtheng/playback/model/Track.java" />
-        <option value="$PROJECT_DIR$/../README.md" />
         <option value="$PROJECT_DIR$/src/main/java/com/dtheng/playback/model/CurrentTrack.java" />
         <option value="$PROJECT_DIR$/src/main/webapp/index.jsp" />
+        <option value="$PROJECT_DIR$/../README.md" />
+        <option value="$PROJECT_DIR$/src/main/java/com/dtheng/playback/model/Response.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/dtheng/playback/core/Servlet.java" />
       </list>
     </option>
@@ -368,7 +385,7 @@
     <property name="options.splitter.main.proportions" value="0.3" />
     <property name="options.splitter.details.proportions" value="0.2" />
     <property name="options.searchVisible" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../design.json" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../README.md" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.15" />
@@ -916,7 +933,7 @@
       <workItem from="1408761789839" duration="938000" />
       <workItem from="1408775945958" duration="402000" />
       <workItem from="1408776517985" duration="1632000" />
-      <workItem from="1408814781675" duration="6727000" />
+      <workItem from="1408814781675" duration="7072000" />
     </task>
     <task id="LOCAL-00001" summary="base api endpoint">
       <created>1408748721786</created>
@@ -982,11 +999,15 @@
       <created>1408822331026</created>
       <updated>1408822331026</updated>
     </task>
-    <option name="localTasksCounter" value="17" />
+    <task id="LOCAL-00017" summary="added device id to logs">
+      <created>1408822971618</created>
+      <updated>1408822971618</updated>
+    </task>
+    <option name="localTasksCounter" value="18" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="16856000" />
+    <option name="totallyTimeSpent" value="17201000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="35" y="48" width="1332" height="1054" extended-state="0" />
@@ -1057,7 +1078,8 @@
     <MESSAGE value="setup new CurrentTrack class" />
     <MESSAGE value="display elapsed time in webapp" />
     <MESSAGE value="bugs in play/pause api request" />
-    <option name="LAST_COMMIT_MESSAGE" value="bugs in play/pause api request" />
+    <MESSAGE value="added device id to logs" />
+    <option name="LAST_COMMIT_MESSAGE" value="added device id to logs" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
@@ -1095,17 +1117,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/../README.md">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.73125" vertical-offset="221" max-vertical-offset="1148">
-          <caret line="26" column="0" selection-start-line="26" selection-start-column="0" selection-end-line="26" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-      <provider editor-type-id="MarkdownPreviewEditor">
-        <state />
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/dtheng/playback/model/Track.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="684">
@@ -1130,18 +1141,29 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/../README.md">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-14.925926" vertical-offset="364" max-vertical-offset="1608">
+          <caret line="59" column="34" selection-start-line="59" selection-start-column="34" selection-end-line="59" selection-end-column="34" />
+          <folding />
+        </state>
+      </provider>
+      <provider editor-type-id="MarkdownPreviewEditor">
+        <state />
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/dtheng/playback/model/Response.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="620">
-          <caret line="9" column="16" selection-start-line="9" selection-start-column="16" selection-end-line="9" selection-end-column="16" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="842">
+          <caret line="14" column="29" selection-start-line="14" selection-start-column="29" selection-end-line="14" selection-end-column="29" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/dtheng/playback/core/Servlet.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.4064915" vertical-offset="1232" max-vertical-offset="3624">
-          <caret line="115" column="78" selection-start-line="115" selection-start-column="78" selection-end-line="115" selection-end-column="78" />
+        <state vertical-scroll-proportion="0.82843894" vertical-offset="322" max-vertical-offset="3650">
+          <caret line="66" column="33" selection-start-line="66" selection-start-column="33" selection-end-line="66" selection-end-column="33" />
           <folding />
         </state>
       </provider>

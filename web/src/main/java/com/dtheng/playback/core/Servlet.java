@@ -48,6 +48,8 @@ public class Servlet extends HttpServlet {
                     }
             }
 
+            thisUsersData.current_time = new Date().getTime();
+
             String json =
                     new Gson().toJson(thisUsersData);
             int length = json.length();

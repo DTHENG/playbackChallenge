@@ -12,4 +12,5 @@ public class Response {
     public State state;
     public int position;
     public List<Device> devices;
+    public long current_time;
 }
