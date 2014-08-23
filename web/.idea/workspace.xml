@@ -132,8 +132,8 @@
             <state />
           </provider>
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.27841845" vertical-offset="572" max-vertical-offset="1608">
-              <caret line="57" column="20" selection-start-line="57" selection-start-column="20" selection-end-line="57" selection-end-column="20" />
+            <state vertical-scroll-proportion="0.5996705" vertical-offset="0" max-vertical-offset="1582">
+              <caret line="28" column="0" selection-start-line="28" selection-start-column="0" selection-end-line="28" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -937,7 +937,7 @@
       <workItem from="1408761789839" duration="938000" />
       <workItem from="1408775945958" duration="402000" />
       <workItem from="1408776517985" duration="1632000" />
-      <workItem from="1408814781675" duration="7444000" />
+      <workItem from="1408814781675" duration="7580000" />
     </task>
     <task id="LOCAL-00001" summary="base api endpoint">
       <created>1408748721786</created>
@@ -1023,11 +1023,15 @@
       <created>1408825882336</created>
       <updated>1408825882336</updated>
     </task>
-    <option name="localTasksCounter" value="22" />
+    <task id="LOCAL-00022" summary="removed comment">
+      <created>1408825916273</created>
+      <updated>1408825916273</updated>
+    </task>
+    <option name="localTasksCounter" value="23" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="17573000" />
+    <option name="totallyTimeSpent" value="17709000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="35" y="48" width="1332" height="1054" extended-state="0" />
@@ -1103,7 +1107,8 @@
     <MESSAGE value="updated readme doc" />
     <MESSAGE value="updated design json" />
     <MESSAGE value="added json flag to readme" />
-    <option name="LAST_COMMIT_MESSAGE" value="added json flag to readme" />
+    <MESSAGE value="removed comment" />
+    <option name="LAST_COMMIT_MESSAGE" value="removed comment" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
@@ -1183,8 +1188,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/../README.md">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.27841845" vertical-offset="572" max-vertical-offset="1608">
-          <caret line="57" column="20" selection-start-line="57" selection-start-column="20" selection-end-line="57" selection-end-column="20" />
+        <state vertical-scroll-proportion="0.5996705" vertical-offset="0" max-vertical-offset="1582">
+          <caret line="28" column="0" selection-start-line="28" selection-start-column="0" selection-end-line="28" selection-end-column="0" />
           <folding />
         </state>
       </provider>

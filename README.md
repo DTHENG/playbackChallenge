@@ -27,9 +27,7 @@ $ curl -XPOST http://playback.dtheng.com/api -d update=true -d user=alfredh -d s
 
 =======
 
-### Responses
-
-#### Get
+#### Get response
 
 ```json
 {
