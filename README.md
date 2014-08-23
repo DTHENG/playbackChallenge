@@ -55,7 +55,7 @@ $ curl -XPOST http://playback.dtheng.com/api -d update=true -d user=alfredh -d s
         "album": "BEGGARS BANQUET",
         "length": 378
     },
-    "state": "PLAY", // or "PAUSE"
+    "state": "PLAY",
     "position": 62,
     "current_time": 1408817868681,
     "devices": [

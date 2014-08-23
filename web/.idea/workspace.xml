@@ -132,8 +132,8 @@
             <state />
           </provider>
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.7067545" vertical-offset="0" max-vertical-offset="1608">
-              <caret line="33" column="7" selection-start-line="33" selection-start-column="7" selection-end-line="33" selection-end-column="7" />
+            <state vertical-scroll-proportion="0.27841845" vertical-offset="572" max-vertical-offset="1608">
+              <caret line="57" column="20" selection-start-line="57" selection-start-column="20" selection-end-line="57" selection-end-column="20" />
               <folding />
             </state>
           </provider>
@@ -937,7 +937,7 @@
       <workItem from="1408761789839" duration="938000" />
       <workItem from="1408775945958" duration="402000" />
       <workItem from="1408776517985" duration="1632000" />
-      <workItem from="1408814781675" duration="7408000" />
+      <workItem from="1408814781675" duration="7444000" />
     </task>
     <task id="LOCAL-00001" summary="base api endpoint">
       <created>1408748721786</created>
@@ -1019,11 +1019,15 @@
       <created>1408825761479</created>
       <updated>1408825761479</updated>
     </task>
-    <option name="localTasksCounter" value="21" />
+    <task id="LOCAL-00021" summary="added json flag to readme">
+      <created>1408825882336</created>
+      <updated>1408825882336</updated>
+    </task>
+    <option name="localTasksCounter" value="22" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="17537000" />
+    <option name="totallyTimeSpent" value="17573000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="35" y="48" width="1332" height="1054" extended-state="0" />
@@ -1098,7 +1102,8 @@
     <MESSAGE value="added new current_time attr to api response" />
     <MESSAGE value="updated readme doc" />
     <MESSAGE value="updated design json" />
-    <option name="LAST_COMMIT_MESSAGE" value="updated design json" />
+    <MESSAGE value="added json flag to readme" />
+    <option name="LAST_COMMIT_MESSAGE" value="added json flag to readme" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
@@ -1178,8 +1183,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/../README.md">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.7067545" vertical-offset="0" max-vertical-offset="1608">
-          <caret line="33" column="7" selection-start-line="33" selection-start-column="7" selection-end-line="33" selection-end-column="7" />
+        <state vertical-scroll-proportion="0.27841845" vertical-offset="572" max-vertical-offset="1608">
+          <caret line="57" column="20" selection-start-line="57" selection-start-column="20" selection-end-line="57" selection-end-column="20" />
           <folding />
         </state>
       </provider>
