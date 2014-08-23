@@ -3,8 +3,11 @@ package com.dtheng.playback.spela;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.StrictMode;
 import android.view.Menu;
 import android.view.MenuItem;
+
+import com.google.gson.reflect.TypeToken;
 
 public class Base extends Activity {
 
@@ -12,11 +15,14 @@ public class Base extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+        StrictMode.setThreadPolicy(policy);
+
         if (this instanceof Auth) return;
 
-        Intent newIntent = new Intent(this, Auth.class);
-
-        this.startActivity(newIntent);
+        if (IO.get("user", new TypeToken<User>(){}.getType(), this) == null) {
+            startActivity(new Intent(this, Auth.class));
+        }
     }
 
 
