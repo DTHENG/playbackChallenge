@@ -21,7 +21,7 @@ $ curl -XGET http://playback.dtheng.com/api?user=alfredh
 ##### Update
 
 ```
-$ curl -XPOST http://playback.dtheng.com/api -d update=true -d state=PLAY -d next=false -d previous=false -d device_id='MacBook Pro'
+$ curl -XPOST http://playback.dtheng.com/api -d update=true -d user=alfredh -d state=PLAY -d next=false -d previous=false -d device_id='MacBook Pro'
 ```
 
 
@@ -45,7 +45,8 @@ $ curl -XPOST http://playback.dtheng.com/api -d update=true -d state=PLAY -d nex
         "title": "Paint It, Black",
         "artist": "The Rolling Stones",
         "album": "AFTERMATH",
-        "length": 202
+        "length": 202,
+        "started": 1408817868681
     },
     "next": {
         "id": 2,
