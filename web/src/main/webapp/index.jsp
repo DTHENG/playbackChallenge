@@ -69,8 +69,7 @@
                                 user: sessionStorage.getItem("user"),
                                 state: "PLAY",
                                 next: false,
-                                previous: false,
-                                device_id: "MacBook Pro"
+                                previous: false
                             }
                         );
                     },
@@ -81,8 +80,7 @@
                                 user: sessionStorage.getItem("user"),
                                 state: "PAUSE",
                                 next: false,
-                                previous: false,
-                                device_id: "MacBook Pro"
+                                previous: false
                             }
                         );
                     },
@@ -93,8 +91,7 @@
                                 user: sessionStorage.getItem("user"),
                                 state: "PLAY",
                                 next: true,
-                                previous: false,
-                                device_id: "MacBook Pro"
+                                previous: false
                             }
                         );
                     },
@@ -105,8 +102,7 @@
                                 user: sessionStorage.getItem("user"),
                                 state: "PLAY",
                                 next: false,
-                                previous: true,
-                                device_id: "MacBook Pro"
+                                previous: true
                             }
                         );
                     }
