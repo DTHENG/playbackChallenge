@@ -1,0 +1,75 @@
+[
+
+    {
+        "user": "DanielT"
+    },
+
+
+
+
+    {
+        "auth": true,
+        "first_name": "Daniel",
+        "last_initial": "T",
+        "device_id": "MacBook Pro"
+    },
+
+
+    {
+        "update": true,
+        "user": "DanielT",
+        "state": 1,
+        "next": false,
+        "previous": true,
+        "device_id": "MacBook Pro"
+    },
+
+
+
+    {
+        "previous": {
+            "id": 12,
+            "title": "Black Sugar",
+            "artist": "The Rolling Stones",
+            "album": "Sticky Fingers",
+            "artwork": {
+                "small": "/rollingstones/stickyfingers_small.jpg",
+                "medium": "/rollingstones/stickyfingers_medium.jpg",
+                "large": "/rollingstones/stickyfingers_large.jpg"
+            },
+            "length": 229
+        },
+        "current": {
+            "id": 13,
+            "title": "Paint It, Black",
+            "artist": "The Rolling Stones",
+            "album": "AFTERMATH",
+            "artwork": {
+                "small": "/rollingstones/aftermath_small.jpg",
+                "medium": "/rollingstones/aftermath_medium.jpg",
+                "large": "/rollingstones/aftermath_large.jpg"
+            },
+            "length": 202
+        },
+        "next": {},
+        "state": 0,
+        "position": 62,
+        "devices": [
+            {
+                "id": 1001,
+                "name": "MacBook Pro",
+                "is_playing": false
+            },
+            {
+                "id": 1002,
+                "name": "iPhone 5s",
+                "is_playing": true
+            },
+            {
+                "id": 1003,
+                "name": "Galaxy S3",
+                "is_playing": false
+            }
+        ]
+    }
+]
