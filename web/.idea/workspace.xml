@@ -94,8 +94,8 @@
                 <state />
               </provider>
               <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="0.4911111" vertical-offset="0" max-vertical-offset="1425">
-                  <caret line="17" column="56" selection-start-line="17" selection-start-column="56" selection-end-line="17" selection-end-column="56" />
+                <state vertical-scroll-proportion="0.8088889" vertical-offset="611" max-vertical-offset="1425">
+                  <caret line="75" column="1" selection-start-line="34" selection-start-column="0" selection-end-line="75" selection-end-column="1" />
                   <folding />
                 </state>
               </provider>
@@ -914,7 +914,7 @@
       <workItem from="1408761789839" duration="938000" />
       <workItem from="1408775945958" duration="402000" />
       <workItem from="1408776517985" duration="1632000" />
-      <workItem from="1408814781675" duration="626000" />
+      <workItem from="1408814781675" duration="692000" />
     </task>
     <task id="LOCAL-00001" summary="base api endpoint">
       <created>1408748721786</created>
@@ -948,11 +948,15 @@
       <created>1408815230268</created>
       <updated>1408815230268</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="display curl commands in one line">
+      <created>1408815420138</created>
+      <updated>1408815420138</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="10755000" />
+    <option name="totallyTimeSpent" value="10821000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="35" y="48" width="1332" height="1054" extended-state="0" />
@@ -1012,7 +1016,8 @@
     <MESSAGE value="Merge branch 'release/0.3'&#10;&#10;Conflicts:&#10;&#9;README.md&#10;" />
     <MESSAGE value="0.2 -&gt; 0.3" />
     <MESSAGE value="added response json to readme" />
-    <option name="LAST_COMMIT_MESSAGE" value="added response json to readme" />
+    <MESSAGE value="display curl commands in one line" />
+    <option name="LAST_COMMIT_MESSAGE" value="display curl commands in one line" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
@@ -1060,8 +1065,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/../README.md">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.4911111" vertical-offset="0" max-vertical-offset="1425">
-          <caret line="17" column="56" selection-start-line="17" selection-start-column="56" selection-end-line="17" selection-end-column="56" />
+        <state vertical-scroll-proportion="0.8088889" vertical-offset="611" max-vertical-offset="1425">
+          <caret line="75" column="1" selection-start-line="34" selection-start-column="0" selection-end-line="75" selection-end-column="1" />
           <folding />
         </state>
       </provider>
