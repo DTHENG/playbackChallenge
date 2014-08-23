@@ -29,6 +29,7 @@
             <div class="small-4 columns">&#160;</div>
             <div class="small-4 columns">
                 <p><span id="trackTitle"></span></p>
+                <p><span id="elapsed"></span> of <span id="length"></span></p>
             </div>
             <div class="small-4 columns">&#160;</div>
         </div>
@@ -70,6 +71,31 @@
                                 $("#trackTitle").html(resp.current.title);
                             }
                         );
+                        function refresh() {
+                            $.get("/api",
+                                {
+                                    user: sessionStorage.getItem("user")
+                                },
+                                function (resp, status) {
+                                    if (status !== "success") return;
+                                    $("#trackTitle").html(resp.current.title);
+                                    switch (resp.state) {
+                                        case "PLAY":
+                                            var started = resp.current.started;
+                                            $("#elapsed").html(Math.round((new Date().getTime() - started) / 1000));
+                                            $("#length").html(resp.current.length / 60);
+                                            break;
+                                        case "PAUSE":
+                                            $("#elapsed").html(resp.position);
+                                            $("#length").html(resp.current.length / 60);
+
+
+                                    }
+                                }
+                            );
+                        }
+                        refresh();
+                        window.setInterval(refresh, 1000);
                         return;
                     }
                     $("#auth").css("display","block");
