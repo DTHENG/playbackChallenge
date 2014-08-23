@@ -7,7 +7,7 @@ import java.util.List;
  */
 public class Response {
     public Track previous;
-    public Track current;
+    public CurrentTrack current;
     public Track next;
     public State state;
     public int position;
