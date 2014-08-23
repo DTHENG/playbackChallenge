@@ -30,6 +30,8 @@
     return 6;
 }
 
+
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     switch (indexPath.row) {
         case 0:
@@ -57,6 +59,7 @@
                         
                         while (true) {
                             
+                            NSLog(@"api request");
                             NSData *urlData;
                             NSURLResponse *response;
                             NSError *error;
@@ -73,11 +76,13 @@
                                 
                                 if (response == nil) {
                                     [prefs removeObjectForKey:@"auth"];
-                                    [prefs removeObjectForKey:@"user"];
+                                    [prefs removeObjectForKey:@"firstName"];
+                                    [prefs removeObjectForKey:@"lastInitial"];
+                                    [prefs synchronize];
                                     [self performSegueWithIdentifier:@"authSegue" sender:self];
                                     return;
                                 }
-                                NSLog(@"%@",response);
+                                //NSLog(@"%@",response);
                                 
                                 if ([[response objectForKey:@"state"] isEqualToString:@"PLAY"]) {
                                     double timestamp = [[response objectForKey:@"current_time"] doubleValue];
