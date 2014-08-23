@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="66ba6a4c-76bd-4e59-89c9-34f44be5f79f" name="Default" comment="updated readme doc">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../design.json" afterPath="$PROJECT_DIR$/../design.json" />
+    <list default="true" id="66ba6a4c-76bd-4e59-89c9-34f44be5f79f" name="Default" comment="">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../README.md" afterPath="$PROJECT_DIR$/../README.md" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="skeleton.iws" />
@@ -66,10 +66,10 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="design.json" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="design.json" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/../design.json">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.7696" vertical-offset="195" max-vertical-offset="1600">
+            <state vertical-scroll-proportion="-21.863636" vertical-offset="195" max-vertical-offset="1600">
               <caret line="52" column="36" selection-start-line="52" selection-start-column="36" selection-end-line="52" selection-end-column="36" />
               <folding />
             </state>
@@ -126,14 +126,14 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="README.md" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="README.md" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/../README.md">
           <provider editor-type-id="MarkdownPreviewEditor">
             <state />
           </provider>
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-7.703704" vertical-offset="559" max-vertical-offset="1608">
-              <caret line="59" column="10" selection-start-line="59" selection-start-column="0" selection-end-line="60" selection-end-column="0" />
+            <state vertical-scroll-proportion="0.7067545" vertical-offset="0" max-vertical-offset="1608">
+              <caret line="33" column="7" selection-start-line="33" selection-start-column="7" selection-end-line="33" selection-end-column="7" />
               <folding />
             </state>
           </provider>
@@ -157,10 +157,10 @@
         <option value="$PROJECT_DIR$/src/main/java/com/dtheng/playback/model/Track.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/dtheng/playback/model/CurrentTrack.java" />
         <option value="$PROJECT_DIR$/src/main/webapp/index.jsp" />
-        <option value="$PROJECT_DIR$/../README.md" />
         <option value="$PROJECT_DIR$/src/main/java/com/dtheng/playback/model/Response.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/dtheng/playback/core/Servlet.java" />
         <option value="$PROJECT_DIR$/../design.json" />
+        <option value="$PROJECT_DIR$/../README.md" />
       </list>
     </option>
   </component>
@@ -937,7 +937,7 @@
       <workItem from="1408761789839" duration="938000" />
       <workItem from="1408775945958" duration="402000" />
       <workItem from="1408776517985" duration="1632000" />
-      <workItem from="1408814781675" duration="7287000" />
+      <workItem from="1408814781675" duration="7408000" />
     </task>
     <task id="LOCAL-00001" summary="base api endpoint">
       <created>1408748721786</created>
@@ -1015,11 +1015,15 @@
       <created>1408825710482</created>
       <updated>1408825710482</updated>
     </task>
-    <option name="localTasksCounter" value="20" />
+    <task id="LOCAL-00020" summary="updated design json">
+      <created>1408825761479</created>
+      <updated>1408825761479</updated>
+    </task>
+    <option name="localTasksCounter" value="21" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="17416000" />
+    <option name="totallyTimeSpent" value="17537000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="35" y="48" width="1332" height="1054" extended-state="0" />
@@ -1093,7 +1097,8 @@
     <MESSAGE value="added device id to logs" />
     <MESSAGE value="added new current_time attr to api response" />
     <MESSAGE value="updated readme doc" />
-    <option name="LAST_COMMIT_MESSAGE" value="updated readme doc" />
+    <MESSAGE value="updated design json" />
+    <option name="LAST_COMMIT_MESSAGE" value="updated design json" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
@@ -1163,23 +1168,23 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/../design.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-21.863636" vertical-offset="195" max-vertical-offset="1600">
+          <caret line="52" column="36" selection-start-line="52" selection-start-column="36" selection-end-line="52" selection-end-column="36" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/../README.md">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-7.703704" vertical-offset="559" max-vertical-offset="1608">
-          <caret line="59" column="10" selection-start-line="59" selection-start-column="0" selection-end-line="60" selection-end-column="0" />
+        <state vertical-scroll-proportion="0.7067545" vertical-offset="0" max-vertical-offset="1608">
+          <caret line="33" column="7" selection-start-line="33" selection-start-column="7" selection-end-line="33" selection-end-column="7" />
           <folding />
         </state>
       </provider>
       <provider editor-type-id="MarkdownPreviewEditor">
         <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../design.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.7696" vertical-offset="195" max-vertical-offset="1600">
-          <caret line="52" column="36" selection-start-line="52" selection-start-column="36" selection-end-line="52" selection-end-column="36" />
-          <folding />
-        </state>
       </provider>
     </entry>
   </component>
