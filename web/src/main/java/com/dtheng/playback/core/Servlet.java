@@ -70,7 +70,7 @@ public class Servlet extends HttpServlet {
             String lastInitial = req.getParameter("last_initial");
             String deviceId = req.getParameter("device_id");
 
-            LOG.info("processing auth request from "+ firstName +" "+ lastInitial);
+            LOG.info("processing auth request from "+ firstName +" "+ lastInitial +" - "+ deviceId);
 
             String key = firstName + lastInitial;
 
@@ -113,7 +113,7 @@ public class Servlet extends HttpServlet {
             boolean previous = Boolean.parseBoolean(req.getParameter("previous"));
             String device_id = req.getParameter("device_id");
 
-            LOG.info("processing update request from "+ user);
+            LOG.info("processing update request from "+ user +" - "+ device_id);
 
             if (user != null &&
                     users.containsKey(user)) {

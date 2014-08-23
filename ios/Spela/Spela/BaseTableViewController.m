@@ -36,6 +36,13 @@
     if (urlData != nil) {
         NSError *jsonParsingError = nil;
         NSDictionary *response = [NSJSONSerialization JSONObjectWithData:urlData options:0 error:&jsonParsingError];
+        
+        if (response == nil) {
+            [prefs removeObjectForKey:@"auth"];
+            [prefs removeObjectForKey:@"user"];
+            [self performSegueWithIdentifier:@"authSegue" sender:self];
+            return;
+        }
         NSLog(@"%@",response);
         
         NSLog(@"current artist: %@", [[response objectForKey:@"current"] objectForKey:@"artist"]);
