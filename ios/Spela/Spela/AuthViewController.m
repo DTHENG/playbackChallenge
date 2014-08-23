@@ -65,14 +65,39 @@
                 [alert show];
                 break;
             }
-            NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
-            [prefs setObject:[NSNumber numberWithBool:YES] forKey:@"auth"];
-            [prefs setObject:self.firstName forKey:@"firstName"];
-            [prefs setObject:self.lastInitial forKey:@"lastInitial"];
-            [prefs synchronize];
-            [self dismissViewControllerAnimated:YES completion:nil];
+            if ([self authenticate:self.firstName :self.lastInitial]) {
+                NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+                [prefs setObject:[NSNumber numberWithBool:YES] forKey:@"auth"];
+                [prefs setObject:self.firstName forKey:@"firstName"];
+                [prefs setObject:self.lastInitial forKey:@"lastInitial"];
+                [prefs synchronize];
+                [self dismissViewControllerAnimated:YES completion:nil];
+                break;
+            }
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"An unknown error has occurred" message:nil delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+            [alert show];
         }
     }
 }
+
+- (BOOL)authenticate:(NSString *)firstName :(NSString *)lastInitial {
+    NSString *post = [NSString stringWithFormat:@"&auth=true&first_name=%@&last_initial=%@&device_id=%@", firstName, lastInitial, @"iPhone"];
+    NSData *postData = [post dataUsingEncoding:NSASCIIStringEncoding allowLossyConversion:YES];
+    NSString *postLength = [NSString stringWithFormat:@"%lu",(unsigned long)[postData length]];
+    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] init];
+    [request setURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://playback.dtheng.com/api"]]];
+    [request setHTTPMethod:@"POST"];
+    [request setValue:postLength forHTTPHeaderField:@"Content-Length"];
+    [request setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"Current-Type"];
+    [request setHTTPBody:postData];
+    NSURLConnection *conn = [[NSURLConnection alloc]initWithRequest:request delegate:self];
+    return conn;
+}
+
+- (void)connection:(NSURLConnection *)connection didReceiveData:(NSData*)data { }
+
+- (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error { }
+
+- (void)connectionDidFinishLoading:(NSURLConnection *)connection { }
 
 @end
