@@ -10,4 +10,15 @@ public class Track {
     public String album;
     public Artwork artwork;
     public int length;
+
+    public CurrentTrack toCurrentTrack() {
+        CurrentTrack newCurrent = new CurrentTrack();
+        newCurrent.id = id;
+        newCurrent.title = title;
+        newCurrent.artist = artist;
+        newCurrent.album = album;
+        newCurrent.artwork = artwork;
+        newCurrent.length = length;
+        return newCurrent;
+    }
 }

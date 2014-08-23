@@ -34,9 +34,24 @@ public class Servlet extends HttpServlet {
 
             LOG.info("processing get request from "+ user);
 
+            Response thisUsersData = users.get(user).response;
+
+            switch (thisUsersData.state) {
+                case PLAY:
+                    long now = new Date().getTime();
+                    long elapsed = now - thisUsersData.current.started;
+                    if ((int)(elapsed / 1000L) >= thisUsersData.current.length) {
+                        next(thisUsersData);
+                        if (thisUsersData.next == null) {
+                            thisUsersData.state = State.PAUSE;
+                        }
+                    }
+            }
+
+            thisUsersData.current_time = new Date().getTime();
+
             String json =
-                    new Gson().toJson(
-                            users.get(user).response);
+                    new Gson().toJson(thisUsersData);
             int length = json.length();
             res.getWriter().write(json);
             res.setContentType("application/json");
@@ -57,7 +72,7 @@ public class Servlet extends HttpServlet {
             String lastInitial = req.getParameter("last_initial");
             String deviceId = req.getParameter("device_id");
 
-            LOG.info("processing auth request from "+ firstName +" "+ lastInitial);
+            LOG.info("processing auth request from "+ firstName +" "+ lastInitial +" - "+ deviceId);
 
             String key = firstName + lastInitial;
 
@@ -100,13 +115,27 @@ public class Servlet extends HttpServlet {
             boolean previous = Boolean.parseBoolean(req.getParameter("previous"));
             String device_id = req.getParameter("device_id");
 
-            LOG.info("processing update request from "+ user);
+            LOG.info("processing update request from "+ user +" - "+ device_id);
 
             if (user != null &&
                     users.containsKey(user)) {
 
                 Response thisUsersData = users.get(user).response;
+                State previousState = thisUsersData.state;
                 thisUsersData.state = state;
+
+                switch (state) {
+                    case PLAY:
+                        if (previousState == State.PLAY) break;
+                        long elapsed = ((long) thisUsersData.position) * 1000L;
+                        long historicalStart = new Date().getTime() - elapsed;
+                        thisUsersData.current.started = historicalStart;
+                        break;
+                    case PAUSE:
+                        if (previousState == State.PAUSE) break;
+                        long timeElapsed = new Date().getTime() - thisUsersData.current.started;
+                        thisUsersData.position = (int)(timeElapsed / 1000L);
+                }
 
                 for (Device device : thisUsersData.devices) {
                     if (device.is_playing &&
@@ -125,22 +154,14 @@ public class Servlet extends HttpServlet {
                 }
 
                 if (next) {
-                    Track newCurrentTrack = thisUsersData.next;
-                    if (availableTracks.size() > newCurrentTrack.id +1) {
-                        Track newNextTrack = availableTracks.get(newCurrentTrack.id +1);
-                        thisUsersData.next = newNextTrack;
-                    } else {
-                        thisUsersData.next = null;
-                    }
-                    Track newPreviousTrack = thisUsersData.current;
-                    thisUsersData.previous = newPreviousTrack;
-                    thisUsersData.current = newCurrentTrack;
+                    next(thisUsersData);
                     return;
                 }
 
                 if (previous) {
-                    Track newCurrentTrack = thisUsersData.previous;
-                    Track newNextTrack = thisUsersData.current;
+                    CurrentTrack newCurrentTrack = thisUsersData.previous.toCurrentTrack();
+                    newCurrentTrack.started = new Date().getTime();
+                    Track newNextTrack = thisUsersData.current.toTrack();
                     if (newCurrentTrack.id - 1 >= 0) {
                         Track newPreviousTrack = availableTracks.get(newCurrentTrack.id -1);
                         thisUsersData.previous = newPreviousTrack;
@@ -154,10 +175,25 @@ public class Servlet extends HttpServlet {
         }
     }
 
+    private static final void next(Response data) {
+        CurrentTrack newCurrentTrack = data.next.toCurrentTrack();
+        newCurrentTrack.started = new Date().getTime();
+        if (availableTracks.size() > newCurrentTrack.id +1) {
+            Track newNextTrack = availableTracks.get(newCurrentTrack.id +1);
+            data.next = newNextTrack;
+        } else {
+            data.next = null;
+        }
+        Track newPreviousTrack = data.current;
+        data.previous = newPreviousTrack;
+        data.current = newCurrentTrack;
+    }
+
     private static final Response getNewResponseObject() {
         Response response = new Response();
         response.previous = availableTracks.get(0);
-        response.current = availableTracks.get(1);
+        response.current = availableTracks.get(1).toCurrentTrack();
+        response.current.started = new Date().getTime();
         response.next = availableTracks.get(2);
         response.position = 0;
         response.devices = new ArrayList<Device>();

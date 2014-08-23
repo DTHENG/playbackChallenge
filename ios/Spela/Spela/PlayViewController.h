@@ -10,4 +10,7 @@
 
 @interface PlayViewController : BaseTableViewController
 
+@property UILabel *titleLabel;
+@property UILabel *timer;
+
 @end
