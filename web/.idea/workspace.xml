@@ -2,8 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="66ba6a4c-76bd-4e59-89c9-34f44be5f79f" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../.idea/libraries/lib1.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/main.iml" afterPath="$PROJECT_DIR$/src/main/main.iml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../README.md" afterPath="$PROJECT_DIR$/../README.md" />
     </list>
     <ignored path="skeleton.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -82,7 +81,7 @@
             <state />
           </provider>
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.13584118" vertical-offset="0" max-vertical-offset="1386">
+            <state vertical-scroll-proportion="0.13584118" vertical-offset="0" max-vertical-offset="1373">
               <caret line="10" column="3" selection-start-line="10" selection-start-column="3" selection-end-line="10" selection-end-column="3" />
               <folding />
             </state>
@@ -885,7 +884,7 @@
       <workItem from="1408751784863" duration="1454000" />
       <workItem from="1408761789839" duration="938000" />
       <workItem from="1408775945958" duration="402000" />
-      <workItem from="1408776517985" duration="1527000" />
+      <workItem from="1408776517985" duration="1632000" />
     </task>
     <task id="LOCAL-00001" summary="base api endpoint">
       <created>1408748721786</created>
@@ -919,11 +918,11 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="10024000" />
+    <option name="totallyTimeSpent" value="10129000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="35" y="48" width="1332" height="1054" extended-state="0" />
-    <editor active="false" />
+    <editor active="true" />
     <layout>
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32983795" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
