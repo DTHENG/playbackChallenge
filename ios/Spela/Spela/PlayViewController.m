@@ -178,7 +178,7 @@
 
 - (void)update:(BOOL)play :(BOOL)next :(BOOL)previous {
     NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
-    NSString *post = [NSString stringWithFormat:@"&update=true&state=%@&user=%@%@&next=%@&previous=%@&device_id=%@", play ? @"PLAY" : @"PAUSE", [prefs objectForKey:@"firstName"], [prefs objectForKey:@"lastInitial"], next ? @"true" : @"false", previous ? @"true" : @"false", @"iPhone"];
+    NSString *post = [NSString stringWithFormat:@"&update=true&state=%@&user=%@%@&next=%@&previous=%@", play ? @"PLAY" : @"PAUSE", [prefs objectForKey:@"firstName"], [prefs objectForKey:@"lastInitial"], next ? @"true" : @"false", previous ? @"true" : @"false"];
     NSData *postData = [post dataUsingEncoding:NSASCIIStringEncoding allowLossyConversion:YES];
     NSString *postLength = [NSString stringWithFormat:@"%lu",(unsigned long)[postData length]];
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc] init];
