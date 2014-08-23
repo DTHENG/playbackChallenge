@@ -12,5 +12,7 @@
 
 @property UILabel *titleLabel;
 @property UILabel *timer;
+@property UITableViewCell *device_playing;
+@property BOOL isActive;
 
 @end

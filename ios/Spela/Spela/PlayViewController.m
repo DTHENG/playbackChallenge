@@ -27,9 +27,20 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 6;
+    return 8;
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    
+    self.isActive = YES;
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    
+    self.isActive = NO;
+}
 
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -38,6 +49,7 @@
             return [tableView dequeueReusableCellWithIdentifier:@"logoCell" forIndexPath:indexPath];
         case 1:
         case 4:
+        case 6:
             return [tableView dequeueReusableCellWithIdentifier:@"blank" forIndexPath:indexPath];
         case 2: {
             UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"songTitleCell" forIndexPath:indexPath];
@@ -57,7 +69,7 @@
                     
                     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
                         
-                        while (true) {
+                        while (self.isActive) {
                             
                             NSLog(@"api request");
                             NSData *urlData;
@@ -84,26 +96,40 @@
                                 }
                                 //NSLog(@"%@",response);
                                 
+                                for (int i = 0; i < [[response objectForKey:@"devices"] count]; i++) {
+                                    if ([[[response objectForKey:@"devices"] objectAtIndex:i] objectForKey:@"is_playing"]) {
+                                        dispatch_async(dispatch_get_main_queue(), ^{
+                                            if (self.device_playing != nil) {
+                                                self.device_playing.textLabel.text = [[[response objectForKey:@"devices"] objectAtIndex:i] objectForKey:@"name"];
+                                            }
+                                        });
+                                        break;
+                                    }
+                                }
+                                
+                                
+                                
+                                
                                 if ([[response objectForKey:@"state"] isEqualToString:@"PLAY"]) {
                                     double timestamp = [[response objectForKey:@"current_time"] doubleValue];
                                     double started = [[[response objectForKey:@"current"] objectForKey:@"started"] doubleValue];
                                     
                                     
                                     double elapsed = (timestamp - started) / 1000;
-                                    double trackLength = [[[response objectForKey:@"current"] objectForKey:@"length"] doubleValue] / 60;
+                                    double trackLength = [[[response objectForKey:@"current"] objectForKey:@"length"] doubleValue];
                                     
                                     dispatch_async(dispatch_get_main_queue(), ^{
-                                        self.timer.text = [NSString stringWithFormat:@"%f of %f", elapsed, trackLength];
+                                        self.timer.text = [NSString stringWithFormat:@"%f", elapsed / trackLength * 100];
                                         if (self.titleLabel) {
                                             self.titleLabel.text = [[response objectForKey:@"current"] objectForKey:@"title"];
                                         }
                                     });
                                 } else {
                                     double elapsed = [[response objectForKey:@"position"] doubleValue];
-                                    double trackLength = [[[response objectForKey:@"current"] objectForKey:@"length"] doubleValue] / 60;
+                                    double trackLength = [[[response objectForKey:@"current"] objectForKey:@"length"] doubleValue];
                                     
                                     dispatch_async(dispatch_get_main_queue(), ^{
-                                        self.timer.text = [NSString stringWithFormat:@"%f of %f", elapsed, trackLength];
+                                        self.timer.text = [NSString stringWithFormat:@"%f", elapsed / trackLength * 100];
                                         self.titleLabel.text = [[response objectForKey:@"current"] objectForKey:@"title"];
                                     });
                                 }
@@ -145,6 +171,12 @@
             //[cell addSubview:[self getControlImage:@"pause-active" :160]];
             //[cell addSubview:[self getControlImage:@"next-active" :220]];
 
+            return cell;
+
+        }
+        case 7: {
+            UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"device_playing" forIndexPath:indexPath];
+            self.device_playing = cell;
             return cell;
 
         }
