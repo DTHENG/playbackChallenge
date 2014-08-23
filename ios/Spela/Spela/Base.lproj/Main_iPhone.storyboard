@@ -179,6 +179,9 @@
                                             <state key="normal" title="prev">
                                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                             </state>
+                                            <connections>
+                                                <action selector="previous:" destination="sBx-Eo-u3B" eventType="touchDown" id="dwJ-jM-XVZ"/>
+                                            </connections>
                                         </button>
                                         <button opaque="NO" tag="2" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aP1-bm-URy">
                                             <rect key="frame" x="94" y="0.0" width="46" height="60"/>
@@ -186,6 +189,9 @@
                                             <state key="normal" title="play">
                                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                             </state>
+                                            <connections>
+                                                <action selector="play:" destination="sBx-Eo-u3B" eventType="touchDown" id="bKs-K3-4Yc"/>
+                                            </connections>
                                         </button>
                                         <button opaque="NO" tag="3" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ASh-lq-qOr">
                                             <rect key="frame" x="181" y="0.0" width="46" height="60"/>
@@ -193,6 +199,9 @@
                                             <state key="normal" title="pause">
                                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                             </state>
+                                            <connections>
+                                                <action selector="pause:" destination="sBx-Eo-u3B" eventType="touchDown" id="nSO-yW-azq"/>
+                                            </connections>
                                         </button>
                                         <button opaque="NO" tag="4" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rGD-tp-sFJ">
                                             <rect key="frame" x="249" y="0.0" width="46" height="60"/>
@@ -200,6 +209,9 @@
                                             <state key="normal" title="next">
                                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                             </state>
+                                            <connections>
+                                                <action selector="next:" destination="sBx-Eo-u3B" eventType="touchDown" id="P2Q-Rx-YHw"/>
+                                            </connections>
                                         </button>
                                     </subviews>
                                 </tableViewCellContentView>

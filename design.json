@@ -49,11 +49,13 @@
                 "medium": "/rollingstones/aftermath_medium.jpg",
                 "large": "/rollingstones/aftermath_large.jpg"
             },
-            "length": 202
+            "length": 202,
+            "started": 1408817868681
         },
         "next": {},
         "state": 0,
         "position": 62,
+        "current_time": 1408817868681,
         "devices": [
             {
                 "id": 1001,

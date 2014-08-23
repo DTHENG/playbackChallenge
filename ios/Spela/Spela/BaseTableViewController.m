@@ -20,6 +20,7 @@
         [self performSegueWithIdentifier:@"authSegue" sender:self];
     }
 }
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     
