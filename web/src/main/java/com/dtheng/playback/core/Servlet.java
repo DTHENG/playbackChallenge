@@ -119,15 +119,18 @@ public class Servlet extends HttpServlet {
                     users.containsKey(user)) {
 
                 Response thisUsersData = users.get(user).response;
+                State previousState = thisUsersData.state;
                 thisUsersData.state = state;
 
                 switch (state) {
                     case PLAY:
+                        if (previousState == State.PLAY) break;
                         long elapsed = ((long) thisUsersData.position) * 1000L;
                         long historicalStart = new Date().getTime() - elapsed;
                         thisUsersData.current.started = historicalStart;
                         break;
                     case PAUSE:
+                        if (previousState == State.PAUSE) break;
                         long timeElapsed = new Date().getTime() - thisUsersData.current.started;
                         thisUsersData.position = (int)(timeElapsed / 1000L);
                 }

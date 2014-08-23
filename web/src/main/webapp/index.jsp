@@ -30,6 +30,11 @@
             <div class="small-4 columns">
                 <p><span id="trackTitle"></span></p>
                 <p><span id="elapsed"></span> of <span id="length"></span></p>
+                <a class="button expand" onclick="window.Spela.play();">play</a>
+                <a class="button expand" onclick="window.Spela.pause();">pause</a>
+                <a class="button expand" onclick="window.Spela.next();">next</a>
+                <a class="button expand" onclick="window.Spela.previous();">previous</a>
+
             </div>
             <div class="small-4 columns">&#160;</div>
         </div>
@@ -56,7 +61,56 @@
                                 window.location.href = "/";
                             }
                         );
+                    },
+                    play: function () {
+                        $.post("/api",
+                            {
+                                update: true,
+                                user: sessionStorage.getItem("user"),
+                                state: "PLAY",
+                                next: false,
+                                previous: false,
+                                device_id: "MacBook Pro"
+                            }
+                        );
+                    },
+                    pause: function () {
+                        $.post("/api",
+                            {
+                                update: true,
+                                user: sessionStorage.getItem("user"),
+                                state: "PAUSE",
+                                next: false,
+                                previous: false,
+                                device_id: "MacBook Pro"
+                            }
+                        );
+                    },
+                    next: function () {
+                        $.post("/api",
+                            {
+                                update: true,
+                                user: sessionStorage.getItem("user"),
+                                state: "PLAY",
+                                next: true,
+                                previous: false,
+                                device_id: "MacBook Pro"
+                            }
+                        );
+                    },
+                    previous: function () {
+                        $.post("/api",
+                            {
+                                update: true,
+                                user: sessionStorage.getItem("user"),
+                                state: "PLAY",
+                                next: false,
+                                previous: true,
+                                device_id: "MacBook Pro"
+                            }
+                        );
                     }
+
                 };
 
                 $(document).ready(function () {
@@ -68,6 +122,11 @@
                             },
                             function (resp, status) {
                                 if (status !== "success") return;
+                                if ( ! resp) {
+                                    sessionStorage.removeItem("user");
+                                    window.location.href = "/";
+                                    return;
+                                }
                                 $("#trackTitle").html(resp.current.title);
                             }
                         );
@@ -78,6 +137,11 @@
                                 },
                                 function (resp, status) {
                                     if (status !== "success") return;
+                                    if ( ! resp) {
+                                        sessionStorage.removeItem("user");
+                                        window.location.href = "/";
+                                        return;
+                                    }
                                     $("#trackTitle").html(resp.current.title);
                                     switch (resp.state) {
                                         case "PLAY":
