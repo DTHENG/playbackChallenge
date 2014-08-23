@@ -18,38 +18,9 @@
     if ([prefs objectForKey:@"auth"] == nil &&
             ! [self isKindOfClass:[AuthViewController class]]) {
         [self performSegueWithIdentifier:@"authSegue" sender:self];
-        return;
     }
-    
-    if ([self isKindOfClass:[AuthViewController class]]) return;
-    
-    NSData *urlData;
-    NSURLResponse *response;
-    NSError *error;
-    
-    NSString *url = [NSString stringWithFormat:@"http://playback.dtheng.com/api?user=%@%@", [prefs objectForKey:@"firstName"], [prefs objectForKey:@"lastInitial"]];
-    urlData = [NSURLConnection sendSynchronousRequest:[[NSURLRequest alloc] initWithURL:
-                                                       [[NSURL alloc] initWithString:
-                                                        url]]
-                                    returningResponse:&response
-                                                error:&error];
-    if (urlData != nil) {
-        NSError *jsonParsingError = nil;
-        NSDictionary *response = [NSJSONSerialization JSONObjectWithData:urlData options:0 error:&jsonParsingError];
-        
-        if (response == nil) {
-            [prefs removeObjectForKey:@"auth"];
-            [prefs removeObjectForKey:@"user"];
-            [self performSegueWithIdentifier:@"authSegue" sender:self];
-            return;
-        }
-        NSLog(@"%@",response);
-        
-        NSLog(@"current artist: %@", [[response objectForKey:@"current"] objectForKey:@"artist"]);
-    }
-
-    
 }
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     
