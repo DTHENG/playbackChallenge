@@ -43,6 +43,7 @@ public class Servlet extends HttpServlet {
                     if ((int)(elapsed / 1000L) >= thisUsersData.current.length) {
                         next(thisUsersData);
                         if (thisUsersData.next == null) {
+                            thisUsersData.position = 0;
                             thisUsersData.state = State.PAUSE;
                         }
                     }
