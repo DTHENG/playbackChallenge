@@ -29,7 +29,10 @@
             <div class="small-4 columns">&#160;</div>
             <div class="small-4 columns">
                 <p><span id="trackTitle"></span></p>
-                <p><span id="elapsed"></span> of <span id="length"></span></p>
+                <div class="progress small-12 secondary">
+                    <span id="elapsed" class="meter"></span>
+                </div>
+                <h1>&#160;</h1>
                 <a class="button expand" onclick="window.Spela.play();">play</a>
                 <a class="button expand" onclick="window.Spela.pause();">pause</a>
                 <a class="button expand" onclick="window.Spela.next();">next</a>

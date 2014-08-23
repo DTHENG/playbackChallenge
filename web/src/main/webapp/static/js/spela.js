@@ -97,12 +97,16 @@
                         switch (resp.state) {
                             case "PLAY":
                                 var started = resp.current.started;
-                                $("#elapsed").html(Math.round((new Date().getTime() - started) / 1000));
-                                $("#length").html(resp.current.length / 60);
+                                var elapsed = Math.round((new Date().getTime() - started) / 1000);
+                                var total = resp.current.length;
+                                $("#elapsed").css("width", (elapsed / total * 100).toFixed(4) +"px");
+                                //$("#length").html(resp.current.length / 60);
                                 break;
                             case "PAUSE":
-                                $("#elapsed").html(resp.position);
-                                $("#length").html(resp.current.length / 60);
+                                //var elapsed =
+                                $("#elapsed").css("width", (resp.position / resp.current.length * 100).toFixed(4) +"px");
+
+                            //$("#length").html(resp.current.length / 60);
 
 
                         }
