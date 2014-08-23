@@ -94,8 +94,8 @@
                 <state />
               </provider>
               <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="0.8088889" vertical-offset="611" max-vertical-offset="1425">
-                  <caret line="75" column="1" selection-start-line="34" selection-start-column="0" selection-end-line="75" selection-end-column="1" />
+                <state vertical-scroll-proportion="0.8088889" vertical-offset="650" max-vertical-offset="1451">
+                  <caret line="78" column="102" selection-start-line="78" selection-start-column="102" selection-end-line="78" selection-end-column="102" />
                   <folding />
                 </state>
               </provider>
@@ -108,8 +108,8 @@
           <file leaf-file-name="Servlet.java" pinned="false" current="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/src/main/java/com/dtheng/playback/core/Servlet.java">
               <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="0.51958764" vertical-offset="2166" max-vertical-offset="3020">
-                  <caret line="186" column="37" selection-start-line="186" selection-start-column="37" selection-end-line="186" selection-end-column="59" />
+                <state vertical-scroll-proportion="0.33195877" vertical-offset="2166" max-vertical-offset="3020">
+                  <caret line="179" column="33" selection-start-line="179" selection-start-column="33" selection-end-line="179" selection-end-column="33" />
                   <folding />
                 </state>
               </provider>
@@ -914,7 +914,7 @@
       <workItem from="1408761789839" duration="938000" />
       <workItem from="1408775945958" duration="402000" />
       <workItem from="1408776517985" duration="1632000" />
-      <workItem from="1408814781675" duration="692000" />
+      <workItem from="1408814781675" duration="928000" />
     </task>
     <task id="LOCAL-00001" summary="base api endpoint">
       <created>1408748721786</created>
@@ -952,11 +952,15 @@
       <created>1408815420138</created>
       <updated>1408815420138</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="tweak">
+      <created>1408815479411</created>
+      <updated>1408815479411</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="10821000" />
+    <option name="totallyTimeSpent" value="11057000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="35" y="48" width="1332" height="1054" extended-state="0" />
@@ -1017,7 +1021,8 @@
     <MESSAGE value="0.2 -&gt; 0.3" />
     <MESSAGE value="added response json to readme" />
     <MESSAGE value="display curl commands in one line" />
-    <option name="LAST_COMMIT_MESSAGE" value="display curl commands in one line" />
+    <MESSAGE value="tweak" />
+    <option name="LAST_COMMIT_MESSAGE" value="tweak" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
@@ -1065,8 +1070,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/../README.md">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.8088889" vertical-offset="611" max-vertical-offset="1425">
-          <caret line="75" column="1" selection-start-line="34" selection-start-column="0" selection-end-line="75" selection-end-column="1" />
+        <state vertical-scroll-proportion="0.8088889" vertical-offset="650" max-vertical-offset="1451">
+          <caret line="78" column="102" selection-start-line="78" selection-start-column="102" selection-end-line="78" selection-end-column="102" />
           <folding />
         </state>
       </provider>
