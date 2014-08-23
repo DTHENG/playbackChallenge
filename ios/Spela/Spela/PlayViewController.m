@@ -10,6 +10,22 @@
 
 @implementation PlayViewController
 
+- (IBAction)previous:(id)sender {
+    [self update:YES :NO :YES];
+}
+
+- (IBAction)play:(id)sender {
+    [self update:YES :NO :NO];
+}
+
+- (IBAction)pause:(id)sender {
+    [self update:NO :NO :NO];
+}
+
+- (IBAction)next:(id)sender {
+    [self update:YES :YES :NO];
+}
+
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return 6;
 }
@@ -83,6 +99,7 @@
                                     
                                     dispatch_async(dispatch_get_main_queue(), ^{
                                         self.timer.text = [NSString stringWithFormat:@"%f of %f", elapsed, trackLength];
+                                        self.titleLabel.text = [[response objectForKey:@"current"] objectForKey:@"title"];
                                     });
                                 }
                                 
@@ -111,17 +128,17 @@
                 id thisItem = [[[cell contentView] subviews] objectAtIndex:i];
                 if ([thisItem isKindOfClass:[UIButton class]]) {
                     UIButton *btn = (UIButton *)thisItem;
-                    switch (btn.tag) {
+                    /*switch (btn.tag) {
                         case 1:
                             [btn addSubview:[self getControlImage:@"previous-active" :0]];
-                    }
+                    }*/
                 }
             }
-            [cell addSubview:[self getControlImage:@"previous-active" :40]];
-            [cell addSubview:[self getControlImage:@"play-active" :100]];
+            //[cell addSubview:[self getControlImage:@"previous-active" :40]];
+            //[cell addSubview:[self getControlImage:@"play-active" :100]];
 
-            [cell addSubview:[self getControlImage:@"pause-active" :160]];
-            [cell addSubview:[self getControlImage:@"next-active" :220]];
+            //[cell addSubview:[self getControlImage:@"pause-active" :160]];
+            //[cell addSubview:[self getControlImage:@"next-active" :220]];
 
             return cell;
 
@@ -157,6 +174,23 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     return indexPath.row == 0 ? 80 : 60;
+}
+
+- (void)update:(BOOL)play :(BOOL)next :(BOOL)previous {
+    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+    NSString *post = [NSString stringWithFormat:@"&update=true&state=%@&user=%@%@&next=%@&previous=%@&device_id=%@", play ? @"PLAY" : @"PAUSE", [prefs objectForKey:@"firstName"], [prefs objectForKey:@"lastInitial"], next ? @"true" : @"false", previous ? @"true" : @"false", @"iPhone"];
+    NSData *postData = [post dataUsingEncoding:NSASCIIStringEncoding allowLossyConversion:YES];
+    NSString *postLength = [NSString stringWithFormat:@"%lu",(unsigned long)[postData length]];
+    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] init];
+    [request setURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://playback.dtheng.com/api"]]];
+    [request setHTTPMethod:@"POST"];
+    [request setValue:postLength forHTTPHeaderField:@"Content-Length"];
+    [request setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"Current-Type"];
+    [request setHTTPBody:postData];
+    NSURLConnection *conn = [[NSURLConnection alloc]initWithRequest:request delegate:self];
+    if ( ! conn) {
+        NSLog(@"error making request");
+    }
 }
 
 @end
