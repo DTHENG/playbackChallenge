@@ -75,5 +75,3 @@ $ curl -XPOST http://playback.dtheng.com/api -d update=true -d state=PLAY -d nex
     ]
 }
 ```
-[Sample Java Object](web/src/main/java/com/dtheng/playback/model/Response.java)
-[Sample Android Object](android/spela/app/src/main/java/com/dtheng/playback/spela/model/Response.java)

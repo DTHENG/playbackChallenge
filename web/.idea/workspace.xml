@@ -94,8 +94,8 @@
                 <state />
               </provider>
               <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="0.8088889" vertical-offset="650" max-vertical-offset="1451">
-                  <caret line="78" column="102" selection-start-line="78" selection-start-column="102" selection-end-line="78" selection-end-column="102" />
+                <state vertical-scroll-proportion="0.78" vertical-offset="637" max-vertical-offset="1425">
+                  <caret line="76" column="3" selection-start-line="76" selection-start-column="3" selection-end-line="76" selection-end-column="3" />
                   <folding />
                 </state>
               </provider>
@@ -914,7 +914,7 @@
       <workItem from="1408761789839" duration="938000" />
       <workItem from="1408775945958" duration="402000" />
       <workItem from="1408776517985" duration="1632000" />
-      <workItem from="1408814781675" duration="928000" />
+      <workItem from="1408814781675" duration="1132000" />
     </task>
     <task id="LOCAL-00001" summary="base api endpoint">
       <created>1408748721786</created>
@@ -956,11 +956,15 @@
       <created>1408815479411</created>
       <updated>1408815479411</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="added links to java objects">
+      <created>1408815718509</created>
+      <updated>1408815718509</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="11057000" />
+    <option name="totallyTimeSpent" value="11261000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="35" y="48" width="1332" height="1054" extended-state="0" />
@@ -1022,7 +1026,8 @@
     <MESSAGE value="added response json to readme" />
     <MESSAGE value="display curl commands in one line" />
     <MESSAGE value="tweak" />
-    <option name="LAST_COMMIT_MESSAGE" value="tweak" />
+    <MESSAGE value="added links to java objects" />
+    <option name="LAST_COMMIT_MESSAGE" value="added links to java objects" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
@@ -1070,8 +1075,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/../README.md">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.8088889" vertical-offset="650" max-vertical-offset="1451">
-          <caret line="78" column="102" selection-start-line="78" selection-start-column="102" selection-end-line="78" selection-end-column="102" />
+        <state vertical-scroll-proportion="0.78" vertical-offset="637" max-vertical-offset="1425">
+          <caret line="76" column="3" selection-start-line="76" selection-start-column="3" selection-end-line="76" selection-end-column="3" />
           <folding />
         </state>
       </provider>
