@@ -10,7 +10,7 @@
     {
         "auth": true,
         "first_name": "Daniel",
-        "first_initial": "T",
+        "last_initial": "T",
         "device_id": "MacBook Pro"
     },
 

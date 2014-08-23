@@ -59,29 +59,28 @@
                 };
 
                 $(document).ready(function () {
-
                     if (sessionStorage.getItem("user")) {
-
                         $("#player").css("display","block");
-
                         $.get("/api",
                             {
                                 user: sessionStorage.getItem("user")
                             },
                             function (resp, status) {
-
                                 if (status !== "success") return;
-
                                 $("#trackTitle").html(resp.current.title);
                             }
                         );
                         return;
                     }
-
                     $("#auth").css("display","block");
-
+                    $("#name").focus();
+                    $('#initial').keydown( function(e) {
+                        var key = e.charCode ? e.charCode : e.keyCode ? e.keyCode : 0;
+                        if(key != 13) return;
+                        e.preventDefault();
+                        window.Spela.auth($('#name').val(), $('#initial').val());
+                    });
                 });
-
             })(window.jQuery, window, document);
         </script>
     </body>

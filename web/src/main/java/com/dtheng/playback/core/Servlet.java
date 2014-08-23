@@ -49,6 +49,8 @@ public class Servlet extends HttpServlet {
 
         if (availableTracks.size() == 0) setAvailableTracks();
 
+        LOG.info("post request made");
+
         if (req.getParameterMap().containsKey("auth")) {
 
             String firstName = req.getParameter("first_name");
