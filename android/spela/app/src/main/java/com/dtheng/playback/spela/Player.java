@@ -26,8 +26,6 @@ import com.dtheng.playback.spela.model.User;
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
 import com.google.gson.reflect.TypeToken;
-import com.larvalabs.svgandroid.SVG;
-import com.larvalabs.svgandroid.SVGBuilder;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
@@ -79,7 +77,7 @@ public class Player extends Base {
         pause = (Button)findViewById(R.id.pause);
         next = (Button)findViewById(R.id.next);
 
-        SVG playSvg = new SVGBuilder().readFromResource(getResources(), R.raw.play).build();
+        /*SVG playSvg = new SVGBuilder().readFromResource(getResources(), R.raw.play).build();
         SVG previousSvg = new SVGBuilder().readFromResource(getResources(), R.raw.previous).build();
         SVG pauseSvg = new SVGBuilder().readFromResource(getResources(), R.raw.pause).build();
         SVG nextSvg = new SVGBuilder().readFromResource(getResources(), R.raw.next).build();
@@ -87,7 +85,7 @@ public class Player extends Base {
         play.setBackground(playSvg.getDrawable());
         previous.setBackground(previousSvg.getDrawable());
         pause.setBackground(pauseSvg.getDrawable());
-        next.setBackground(nextSvg.getDrawable());
+        next.setBackground(nextSvg.getDrawable());  */
 
         title = (TextView)findViewById(R.id.title);
         artist = (TextView)findViewById(R.id.artist);
@@ -193,7 +191,7 @@ public class Player extends Base {
                                 return;
                             }
 
-                            if (response.previous != null) {
+                            /*if (response.previous != null) {
                                 SVG previousSvg = new SVGBuilder().readFromResource(getResources(), R.raw.previous).build();
                                 previous.setBackground(previousSvg.getDrawable());
                             } else {
@@ -207,7 +205,7 @@ public class Player extends Base {
                             } else {
                                 SVG nextSvg = new SVGBuilder().readFromResource(getResources(), R.raw.next_disabled).build();
                                 next.setBackground(nextSvg.getDrawable());
-                            }
+                            }  */
 
                             title.setText(response.current.title);
                             artist.setText(response.current.artist);
@@ -226,10 +224,10 @@ public class Player extends Base {
 
                                     progressBar.setProgress((int) percent);
 
-                                    SVG playSvg = new SVGBuilder().readFromResource(getResources(), R.raw.play_active).build();
+                                    /*SVG playSvg = new SVGBuilder().readFromResource(getResources(), R.raw.play_active).build();
                                     SVG pauseSvg = new SVGBuilder().readFromResource(getResources(), R.raw.pause).build();
                                     play.setBackground(playSvg.getDrawable());
-                                    pause.setBackground(pauseSvg.getDrawable());
+                                    pause.setBackground(pauseSvg.getDrawable()); */
                                     break;
                                 }
                                 case PAUSE: {
@@ -237,10 +235,10 @@ public class Player extends Base {
                                     double percent = (elapsed / (double) response.current.length) * 100d;
 
                                     progressBar.setProgress((int) percent);
-                                    SVG playSvg = new SVGBuilder().readFromResource(getResources(), R.raw.play).build();
+                                    /*SVG playSvg = new SVGBuilder().readFromResource(getResources(), R.raw.play).build();
                                     SVG pauseSvg = new SVGBuilder().readFromResource(getResources(), R.raw.pause_active).build();
                                     play.setBackground(playSvg.getDrawable());
-                                    pause.setBackground(pauseSvg.getDrawable());
+                                    pause.setBackground(pauseSvg.getDrawable());  */
                                 }
                             }
 
