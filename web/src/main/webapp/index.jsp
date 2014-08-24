@@ -4,7 +4,7 @@
 <html>
     <head>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>spela</title>
+        <title>Spela</title>
         <link href="/static/css/vendor/foundation.min.css" rel="stylesheet" media="screen">
         <link href="/static/css/vendor/normalize.css" rel="stylesheet" media="screen">
         <script src="/static/js/vendor/modernizr.js"></script>
@@ -14,7 +14,7 @@
     <body>
         <div class="row">
             <div class="small-12 large-12 columns">
-                <a href="/" class="navbar-brand"><h1 style="text-align:center;">spela</h1></a>
+                <a href="/" class="navbar-brand"><h1 style="text-align:center;">Spela</h1></a>
             </div>
         </div>
         <div id="auth" style="display:none;" class="row">
@@ -30,10 +30,12 @@
             <div class="small-12 medium-2 large-4 columns hide-for-small">&#160;</div>
             <div class="small-12 medium-8 large-4 columns">
                 <h1 style="text-align:center;font-weight:800"><span id="trackTitle"></span></h1>
-                <h5 style="text-align:center"><span id="trackArtist"></span></h5>
-                <div class="progress small-12" style="margin-bottom:20px;margin-top:20px">
+                <p style="text-align:center"><span id="trackArtist"></span></p>
+                <h6>&#160;</h6>
+                <div class="progress small-12">
                     <span id="elapsed" class="meter"></span>
                 </div>
+                <h6>&#160;</h6>
                 <div class="row">
                     <div class="small-3 columns">
                         <a id="prev" class="button expand" onclick="window.Spela.previous();">prev</a>
@@ -48,10 +50,16 @@
                         <a id="next" class="button expand" onclick="window.Spela.next();">next</a>
                     </div>
                 </div>
-                <a href="#" data-dropdown="devices" class="button dropdown secondary expand"><span id="activeDevice"></span></a><br>
-                <ul id="devices" data-dropdown-content class="f-dropdown">
-                </ul>
-
+                <h6>&#160;</h6>
+                <p style="text-align:center;">playing on</p>
+                <div class="row">
+                    <div class="small-2 columns">&#160;</div>
+                    <div class="small-8 columns">
+                        <a href="#" data-dropdown="devices" class="button dropdown secondary expand"><span id="activeDevice"></span></a><br>
+                        <ul id="devices" data-dropdown-content class="f-dropdown"></ul>
+                    </div>
+                    <div class="small-2 columns">&#160;</div>
+                </div>
             </div>
             <div class="small-12 medium-2 large-4 columns hide-for-small">&#160;</div>
         </div>
