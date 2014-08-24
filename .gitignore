@@ -4,3 +4,4 @@
 **/app/build/*
 *.iml
 *.xcuserstate
+**/android/out/*
