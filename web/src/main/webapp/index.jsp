@@ -3,7 +3,7 @@
 <!doctype html>
 <html>
     <head>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
         <title>Spela</title>
         <link href="/static/css/vendor/foundation.min.css" rel="stylesheet" media="screen">
         <link href="/static/css/vendor/normalize.css" rel="stylesheet" media="screen">
