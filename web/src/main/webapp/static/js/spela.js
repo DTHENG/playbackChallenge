@@ -99,7 +99,7 @@
                                 var started = resp.current.started;
                                 var elapsed = Math.round((new Date().getTime() - started) / 1000);
                                 var total = resp.current.length;
-                                $("#elapsed").css("width", (elapsed / total * 100).toFixed(0) +"px");
+                                $("#elapsed").css("width", (elapsed / total * 100).toFixed(0) +"%");
                                 //$("#length").html(resp.current.length / 60);
                                 break;
                             case "PAUSE":
