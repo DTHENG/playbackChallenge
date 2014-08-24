@@ -3,13 +3,21 @@ package com.dtheng.playback.spela;
 import android.app.Activity;
 import android.content.ContextWrapper;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.graphics.Picture;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.dtheng.playback.spela.model.Device;
@@ -172,10 +180,18 @@ public class Player extends Base {
                                 isUpdating = false;
                                 return;
                             }
-                            System.out.println(new Gson().toJson(response));
 
-                            previous.setEnabled(response.previous != null);
-                            next.setEnabled(response.next != null);
+                            if (response.previous == null) {
+                                previous.setBackgroundResource(R.drawable.prev_btn_disabled);
+                            } else {
+                                previous.setBackgroundResource(R.drawable.prev);
+                            }
+
+                            if (response.next == null) {
+                                next.setBackgroundResource(R.drawable.next_btn_disabled);
+                            } else {
+                                next.setBackgroundResource(R.drawable.next);
+                            }
 
                             title.setText(response.current.title);
                             artist.setText(response.current.artist);
@@ -193,8 +209,9 @@ public class Player extends Base {
                                     double percent = (elapsed / (double) response.current.length) * 100d;
 
                                     progressBar.setProgress((int) percent);
-                                    play.setEnabled(false);
-                                    pause.setEnabled(true);
+
+                                    play.setBackgroundResource(R.drawable.play_btn_active);
+                                    pause.setBackgroundResource(R.drawable.pause);
                                     break;
                                 }
                                 case PAUSE: {
@@ -202,8 +219,8 @@ public class Player extends Base {
                                     double percent = (elapsed / (double) response.current.length) * 100d;
 
                                     progressBar.setProgress((int) percent);
-                                    play.setEnabled(true);
-                                    pause.setEnabled(false);
+                                    play.setBackgroundResource(R.drawable.play);
+                                    pause.setBackgroundResource(R.drawable.pause_btn_active);
                                 }
                             }
 

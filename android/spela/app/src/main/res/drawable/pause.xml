@@ -1,0 +1,8 @@
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:state_pressed="false">
+        <bitmap android:src="@drawable/pause_btn"/>
+    </item>
+    <item android:state_pressed="true">
+        <bitmap android:src="@drawable/pause_btn_active"/>
+    </item>
+</selector>

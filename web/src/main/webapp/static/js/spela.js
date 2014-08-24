@@ -40,7 +40,8 @@
                 {
                     update: true,
                     user: sessionStorage.getItem("user"),
-                    next: true
+                    next: true,
+                    state: "PLAY"
                 }
             );
         },
@@ -49,7 +50,8 @@
                 {
                     update: true,
                     user: sessionStorage.getItem("user"),
-                    previous: true
+                    previous: true,
+                    state: "PLAY"
                 }
             );
         },
@@ -105,14 +107,28 @@
                         }
                         devices.html(deviceOptions);
                         if ( ! resp.next) {
-                            $("#next").addClass("disabled");
+                            if ($("#next").children("img").attr("src") !== "static/next_disabled.svg") {
+                                $("#next").children("img").attr("src", "static/next_disabled.svg");
+                                $("#next").css("cursor", "default");
+                            }
                         } else {
-                            $("#next").removeClass("disabled");
+                            if ($("#next").children("img").attr("src") !== "static/next.svg" &&
+                                $("#next").children("img").attr("src") !== "static/next_active.svg") {
+                                $("#next").children("img").attr("src", "static/next.svg");
+                                $("#next").css("cursor", "pointer");
+                            }
                         }
                         if ( ! resp.previous) {
-                            $("#prev").addClass("disabled");
+                            if ($("#prev").children("img").attr("src") !== "static/previous_disabled.svg") {
+                                $("#prev").children("img").attr("src", "static/previous_disabled.svg");
+                                $("#prev").css("cursor", "default");
+                            }
                         } else {
-                            $("#prev").removeClass("disabled");
+                            if ($("#prev").children("img").attr("src") !== "static/previous.svg" &&
+                                $("#prev").children("img").attr("src") !== "static/previous_active.svg") {
+                                $("#prev").children("img").attr("src", "static/previous.svg");
+                                $("#prev").css("cursor", "pointer");
+                            }
                         }
                         switch (resp.state) {
                             case "PLAY":
@@ -121,14 +137,31 @@
                                 var total = resp.current.length;
                                 $("#elapsed").css("width", (elapsed / total * 100).toFixed(0) +"%");
                                 //$("#length").html(resp.current.length / 60);
-                                $("#play").addClass("disabled");
-                                $("#pause").removeClass("disabled");
+
+                                if ($("#play").children("img").attr("src") !== "static/play_disabled.svg") {
+                                    $("#play").children("img").attr("src", "static/play_disabled.svg");
+                                    $("#play").css("cursor", "default");
+                                }
+
+                                if ($("#pause").children("img").attr("src") !== "static/pause.svg" &&
+                                    $("#pause").children("img").attr("src") !== "static/pause_active.svg") {
+                                    $("#pause").children("img").attr("src", "static/pause.svg");
+                                    $("#pause").css("cursor", "pointer");
+                                }
                                 break;
                             case "PAUSE":
                                 //var elapsed =
                                 $("#elapsed").css("width", (resp.position / resp.current.length * 100).toFixed(0) +"px");
-                                $("#play").removeClass("disabled");
-                                $("#pause").addClass("disabled");
+                                if ($("#play").children("img").attr("src") !== "static/play.svg" &&
+                                    $("#play").children("img").attr("src") !== "static/play_active.svg") {
+                                    $("#play").children("img").attr("src", "static/play.svg");
+                                    $("#play").css("cursor", "pointer");
+                                }
+
+                                if ($("#pause").children("img").attr("src") !== "static/pause_disabled.svg") {
+                                    $("#pause").children("img").attr("src", "static/pause_disabled.svg");
+                                    $("#pause").css("cursor", "default");
+                                }
 
                             //$("#length").html(resp.current.length / 60);
 
@@ -139,6 +172,64 @@
             }
             updateView();
             window.setInterval(updateView, 1000);
+            $( "#prev" )
+                .mouseenter(function() {
+
+                    if ($("#prev").children("img").attr("src") !== "static/previous_active.svg" &&
+                        $("#prev").children("img").attr("src") !== "static/previous_disabled.svg") {
+                        $("#prev").children("img").attr("src", "static/previous_active.svg");
+                    }
+                })
+                .mouseleave(function() {
+                    if ($("#prev").children("img").attr("src") !== "static/previous.svg" &&
+                        $("#prev").children("img").attr("src") !== "static/previous_disabled.svg") {
+                        $("#prev").children("img").attr("src", "static/previous.svg");
+                    }
+                });
+            $( "#next" )
+                .mouseenter(function() {
+
+                    if ($("#next").children("img").attr("src") !== "static/next_active.svg" &&
+                        $("#next").children("img").attr("src") !== "static/next_disabled.svg") {
+                        $("#next").children("img").attr("src", "static/next_active.svg");
+                    }
+                })
+                .mouseleave(function() {
+                    if ($("#next").children("img").attr("src") !== "static/next.svg" &&
+                        $("#next").children("img").attr("src") !== "static/next_disabled.svg") {
+                        $("#next").children("img").attr("src", "static/next.svg");
+                    }
+                });
+
+            $( "#play" )
+                .mouseenter(function() {
+
+                    if ($("#play").children("img").attr("src") !== "static/play_active.svg" &&
+                        $("#play").children("img").attr("src") !== "static/play_disabled.svg") {
+                        $("#play").children("img").attr("src", "static/play_active.svg");
+                    }
+                })
+                .mouseleave(function() {
+                    if ($("#play").children("img").attr("src") !== "static/play.svg" &&
+                        $("#play").children("img").attr("src") !== "static/play_disabled.svg") {
+                        $("#play").children("img").attr("src", "static/play.svg");
+                    }
+                });
+
+            $( "#pause" )
+                .mouseenter(function() {
+
+                    if ($("#pause").children("img").attr("src") !== "static/pause_active.svg" &&
+                        $("#pause").children("img").attr("src") !== "static/pause_disabled.svg") {
+                        $("#pause").children("img").attr("src", "static/pause_active.svg");
+                    }
+                })
+                .mouseleave(function() {
+                    if ($("#pause").children("img").attr("src") !== "static/pause.svg" &&
+                        $("#pause").children("img").attr("src") !== "static/pause_disabled.svg") {
+                        $("#pause").children("img").attr("src", "static/pause.svg");
+                    }
+                });
             return;
         }
         $("#auth").css("display","block");
