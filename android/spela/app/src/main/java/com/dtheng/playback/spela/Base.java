@@ -66,6 +66,7 @@ public class Base extends Activity {
 
         Response response = new Gson().fromJson(result, new TypeToken<Response>(){}.getType());
 
+        System.out.println(new Gson().toJson(response));
 
     }
 

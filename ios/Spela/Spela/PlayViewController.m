@@ -119,7 +119,7 @@
                                     double trackLength = [[[response objectForKey:@"current"] objectForKey:@"length"] doubleValue];
                                     
                                     dispatch_async(dispatch_get_main_queue(), ^{
-                                        self.timer.text = [NSString stringWithFormat:@"%f", elapsed / trackLength * 100];
+                                        self.timer.text = [NSString stringWithFormat:@"%d", (int)(elapsed / trackLength * 100)];
                                         if (self.titleLabel) {
                                             self.titleLabel.text = [[response objectForKey:@"current"] objectForKey:@"title"];
                                         }
@@ -129,7 +129,7 @@
                                     double trackLength = [[[response objectForKey:@"current"] objectForKey:@"length"] doubleValue];
                                     
                                     dispatch_async(dispatch_get_main_queue(), ^{
-                                        self.timer.text = [NSString stringWithFormat:@"%f", elapsed / trackLength * 100];
+                                        self.timer.text = [NSString stringWithFormat:@"%d", (int)(elapsed / trackLength * 100)];
                                         self.titleLabel.text = [[response objectForKey:@"current"] objectForKey:@"title"];
                                     });
                                 }

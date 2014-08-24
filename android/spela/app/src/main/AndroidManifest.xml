@@ -25,6 +25,7 @@
             android:name=".Auth"
             android:label="@string/title_activity_auth" >
         </activity>
+        <activity android:name=".Devices" />
     </application>
     <!-- To access Google+ APIs: -->
     <uses-permission android:name="android.permission.INTERNET" />
