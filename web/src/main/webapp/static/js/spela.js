@@ -78,7 +78,6 @@
                         window.location.href = "/";
                         return;
                     }
-                    $("#trackTitle").html(resp.current.title);
                 }
             );
             var updateView = function() {
@@ -94,6 +93,16 @@
                             return;
                         }
                         $("#trackTitle").html(resp.current.title);
+                        $("#trackArtist").html(resp.current.artist);
+                        var deviceOptions = "";
+                        var devices = $("#devices");
+                        for (var i = 0; i < resp.devices.length; i++) {
+                            if (resp.devices[i].is_playing) {
+                                $("#activeDevice").html(resp.devices[i].name);
+                            }
+                            deviceOptions += "<li><a href=\"#\">"+ resp.devices[i].name +"</a></li>";
+                        }
+                        devices.html(deviceOptions);
                         switch (resp.state) {
                             case "PLAY":
                                 var started = resp.current.started;
