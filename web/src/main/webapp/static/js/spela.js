@@ -112,7 +112,8 @@
                                 $("#next").css("cursor", "default");
                             }
                         } else {
-                            if ($("#next").children("img").attr("src") !== "static/next.svg") {
+                            if ($("#next").children("img").attr("src") !== "static/next.svg" &&
+                                $("#next").children("img").attr("src") !== "static/next_active.svg") {
                                 $("#next").children("img").attr("src", "static/next.svg");
                                 $("#next").css("cursor", "pointer");
                             }
@@ -123,7 +124,8 @@
                                 $("#prev").css("cursor", "default");
                             }
                         } else {
-                            if ($("#prev").children("img").attr("src") !== "static/previous.svg") {
+                            if ($("#prev").children("img").attr("src") !== "static/previous.svg" &&
+                                $("#prev").children("img").attr("src") !== "static/previous_active.svg") {
                                 $("#prev").children("img").attr("src", "static/previous.svg");
                                 $("#prev").css("cursor", "pointer");
                             }
@@ -136,12 +138,13 @@
                                 $("#elapsed").css("width", (elapsed / total * 100).toFixed(0) +"%");
                                 //$("#length").html(resp.current.length / 60);
 
-                                if ($("#play").children("img").attr("src") !== "static/play_active.svg") {
-                                    $("#play").children("img").attr("src", "static/play_active.svg");
+                                if ($("#play").children("img").attr("src") !== "static/play_disabled.svg") {
+                                    $("#play").children("img").attr("src", "static/play_disabled.svg");
                                     $("#play").css("cursor", "default");
                                 }
 
-                                if ($("#pause").children("img").attr("src") !== "static/pause.svg") {
+                                if ($("#pause").children("img").attr("src") !== "static/pause.svg" &&
+                                    $("#pause").children("img").attr("src") !== "static/pause_active.svg") {
                                     $("#pause").children("img").attr("src", "static/pause.svg");
                                     $("#pause").css("cursor", "pointer");
                                 }
@@ -149,13 +152,14 @@
                             case "PAUSE":
                                 //var elapsed =
                                 $("#elapsed").css("width", (resp.position / resp.current.length * 100).toFixed(0) +"px");
-                                if ($("#play").children("img").attr("src") !== "static/play.svg") {
+                                if ($("#play").children("img").attr("src") !== "static/play.svg" &&
+                                    $("#play").children("img").attr("src") !== "static/play_active.svg") {
                                     $("#play").children("img").attr("src", "static/play.svg");
                                     $("#play").css("cursor", "pointer");
                                 }
 
-                                if ($("#pause").children("img").attr("src") !== "static/pause_active.svg") {
-                                    $("#pause").children("img").attr("src", "static/pause_active.svg");
+                                if ($("#pause").children("img").attr("src") !== "static/pause_disabled.svg") {
+                                    $("#pause").children("img").attr("src", "static/pause_disabled.svg");
                                     $("#pause").css("cursor", "default");
                                 }
 
@@ -168,6 +172,64 @@
             }
             updateView();
             window.setInterval(updateView, 1000);
+            $( "#prev" )
+                .mouseenter(function() {
+
+                    if ($("#prev").children("img").attr("src") !== "static/previous_active.svg" &&
+                        $("#prev").children("img").attr("src") !== "static/previous_disabled.svg") {
+                        $("#prev").children("img").attr("src", "static/previous_active.svg");
+                    }
+                })
+                .mouseleave(function() {
+                    if ($("#prev").children("img").attr("src") !== "static/previous.svg" &&
+                        $("#prev").children("img").attr("src") !== "static/previous_disabled.svg") {
+                        $("#prev").children("img").attr("src", "static/previous.svg");
+                    }
+                });
+            $( "#next" )
+                .mouseenter(function() {
+
+                    if ($("#next").children("img").attr("src") !== "static/next_active.svg" &&
+                        $("#next").children("img").attr("src") !== "static/next_disabled.svg") {
+                        $("#next").children("img").attr("src", "static/next_active.svg");
+                    }
+                })
+                .mouseleave(function() {
+                    if ($("#next").children("img").attr("src") !== "static/next.svg" &&
+                        $("#next").children("img").attr("src") !== "static/next_disabled.svg") {
+                        $("#next").children("img").attr("src", "static/next.svg");
+                    }
+                });
+
+            $( "#play" )
+                .mouseenter(function() {
+
+                    if ($("#play").children("img").attr("src") !== "static/play_active.svg" &&
+                        $("#play").children("img").attr("src") !== "static/play_disabled.svg") {
+                        $("#play").children("img").attr("src", "static/play_active.svg");
+                    }
+                })
+                .mouseleave(function() {
+                    if ($("#play").children("img").attr("src") !== "static/play.svg" &&
+                        $("#play").children("img").attr("src") !== "static/play_disabled.svg") {
+                        $("#play").children("img").attr("src", "static/play.svg");
+                    }
+                });
+
+            $( "#pause" )
+                .mouseenter(function() {
+
+                    if ($("#pause").children("img").attr("src") !== "static/pause_active.svg" &&
+                        $("#pause").children("img").attr("src") !== "static/pause_disabled.svg") {
+                        $("#pause").children("img").attr("src", "static/pause_active.svg");
+                    }
+                })
+                .mouseleave(function() {
+                    if ($("#pause").children("img").attr("src") !== "static/pause.svg" &&
+                        $("#pause").children("img").attr("src") !== "static/pause_disabled.svg") {
+                        $("#pause").children("img").attr("src", "static/pause.svg");
+                    }
+                });
             return;
         }
         $("#auth").css("display","block");

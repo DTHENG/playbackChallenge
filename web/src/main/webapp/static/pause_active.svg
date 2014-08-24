@@ -5,8 +5,8 @@
 	 xml:space="preserve">
 <defs>
 </defs>
-<rect x="86.5" y="60.8" width="51.9" height="187.6"/>
-<rect x="165.4" y="60.8" width="51.9" height="187.6"/>
+<rect fill="#2980B9" x="86.5" y="60.8" width="51.9" height="187.6"/>
+<rect fill="#2980B9" x="165.4" y="60.8" width="51.9" height="187.6"/>
 <rect x="0" y="0" fill="none" width="308.1" height="308.1"/>
 </svg>
 
