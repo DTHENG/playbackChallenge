@@ -9,6 +9,7 @@
         <link href="/static/css/vendor/normalize.css" rel="stylesheet" media="screen">
         <script src="/static/js/vendor/modernizr.js"></script>
         <script src="/static/js/vendor/custom.modernizr.js"></script>
+        <link href="/static/icon.png" rel="icon" type="image/ico">
     </head>
     <body>
         <div class="row">
