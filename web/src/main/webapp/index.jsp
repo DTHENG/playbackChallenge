@@ -27,8 +27,8 @@
             <div class="small-4 columns">&#160;</div>
         </div>
         <div id="player" style="display: none;" class="row">
-            <div class="small-12 medium-4 large-4 columns hide-for-small">&#160;</div>
-            <div class="small-12 medium-4 large-4 columns">
+            <div class="small-12 medium-2 large-4 columns hide-for-small">&#160;</div>
+            <div class="small-12 medium-8 large-4 columns">
                 <h1 style="text-align:center;font-weight:800"><span id="trackTitle"></span></h1>
                 <h5 style="text-align:center"><span id="trackArtist"></span></h5>
                 <div class="progress small-12" style="margin-bottom:20px;margin-top:20px">
@@ -53,7 +53,7 @@
                 </ul>
 
             </div>
-            <div class="small-12 medium-4 large-4 columns hide-for-small">&#160;</div>
+            <div class="small-12 medium-2 large-4 columns hide-for-small">&#160;</div>
         </div>
         <script src="/static/js/vendor/jquery.js"></script>
         <script src="/static/js/vendor/foundation.min.js"></script>
