@@ -192,10 +192,22 @@ public class Player extends Base {
                                 isUpdating = false;
                                 return;
                             }
-                            System.out.println(new Gson().toJson(response));
 
-                            previous.setEnabled(response.previous != null);
-                            next.setEnabled(response.next != null);
+                            if (response.previous != null) {
+                                SVG previousSvg = new SVGBuilder().readFromResource(getResources(), R.raw.previous).build();
+                                previous.setBackground(previousSvg.getDrawable());
+                            } else {
+                                SVG previousSvg = new SVGBuilder().readFromResource(getResources(), R.raw.previous_disabled).build();
+                                previous.setBackground(previousSvg.getDrawable());
+                            }
+
+                            if (response.next != null) {
+                                SVG nextSvg = new SVGBuilder().readFromResource(getResources(), R.raw.next).build();
+                                next.setBackground(nextSvg.getDrawable());
+                            } else {
+                                SVG nextSvg = new SVGBuilder().readFromResource(getResources(), R.raw.next_disabled).build();
+                                next.setBackground(nextSvg.getDrawable());
+                            }
 
                             title.setText(response.current.title);
                             artist.setText(response.current.artist);
@@ -213,8 +225,11 @@ public class Player extends Base {
                                     double percent = (elapsed / (double) response.current.length) * 100d;
 
                                     progressBar.setProgress((int) percent);
-                                    play.setEnabled(false);
-                                    pause.setEnabled(true);
+
+                                    SVG playSvg = new SVGBuilder().readFromResource(getResources(), R.raw.play_active).build();
+                                    SVG pauseSvg = new SVGBuilder().readFromResource(getResources(), R.raw.pause).build();
+                                    play.setBackground(playSvg.getDrawable());
+                                    pause.setBackground(pauseSvg.getDrawable());
                                     break;
                                 }
                                 case PAUSE: {
@@ -222,8 +237,10 @@ public class Player extends Base {
                                     double percent = (elapsed / (double) response.current.length) * 100d;
 
                                     progressBar.setProgress((int) percent);
-                                    play.setEnabled(true);
-                                    pause.setEnabled(false);
+                                    SVG playSvg = new SVGBuilder().readFromResource(getResources(), R.raw.play).build();
+                                    SVG pauseSvg = new SVGBuilder().readFromResource(getResources(), R.raw.pause_active).build();
+                                    play.setBackground(playSvg.getDrawable());
+                                    pause.setBackground(pauseSvg.getDrawable());
                                 }
                             }
 
