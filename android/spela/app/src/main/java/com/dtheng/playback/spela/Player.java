@@ -3,6 +3,8 @@ package com.dtheng.playback.spela;
 import android.app.Activity;
 import android.content.ContextWrapper;
 import android.content.Intent;
+import android.graphics.Picture;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -18,6 +20,8 @@ import com.dtheng.playback.spela.model.User;
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
 import com.google.gson.reflect.TypeToken;
+import com.larvalabs.svgandroid.SVG;
+import com.larvalabs.svgandroid.SVGParser;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
@@ -68,6 +72,12 @@ public class Player extends Base {
         play = (Button)findViewById(R.id.play);
         pause = (Button)findViewById(R.id.pause);
         next = (Button)findViewById(R.id.next);
+
+        //SVG svg = SVGParser.getSVGFromResource(getResources(), R.raw.filename);
+        //Picture picture = svg.getPicture();
+        //Drawable drawable = svg.createPictureDrawable();
+
+
 
         title = (TextView)findViewById(R.id.title);
         artist = (TextView)findViewById(R.id.artist);
