@@ -9,6 +9,7 @@
         <link href="/static/css/vendor/normalize.css" rel="stylesheet" media="screen">
         <script src="/static/js/vendor/modernizr.js"></script>
         <script src="/static/js/vendor/custom.modernizr.js"></script>
+        <link href="/static/icon.png" rel="icon" type="image/ico">
     </head>
     <body>
         <div class="row">
@@ -26,17 +27,33 @@
             <div class="small-4 columns">&#160;</div>
         </div>
         <div id="player" style="display: none;" class="row">
-            <div class="small-4 columns">&#160;</div>
-            <div class="small-4 columns">
-                <p><span id="trackTitle"></span></p>
-                <p><span id="elapsed"></span> of <span id="length"></span></p>
-                <a class="button expand" onclick="window.Spela.play();">play</a>
-                <a class="button expand" onclick="window.Spela.pause();">pause</a>
-                <a class="button expand" onclick="window.Spela.next();">next</a>
-                <a class="button expand" onclick="window.Spela.previous();">previous</a>
+            <div class="small-12 medium-2 large-4 columns hide-for-small">&#160;</div>
+            <div class="small-12 medium-8 large-4 columns">
+                <h1 style="text-align:center;font-weight:800"><span id="trackTitle"></span></h1>
+                <h5 style="text-align:center"><span id="trackArtist"></span></h5>
+                <div class="progress small-12" style="margin-bottom:20px;margin-top:20px">
+                    <span id="elapsed" class="meter"></span>
+                </div>
+                <div class="row">
+                    <div class="small-3 columns">
+                        <a class="button expand" onclick="window.Spela.previous();">prev</a>
+                    </div>
+                    <div class="small-3 columns">
+                        <a class="button expand" onclick="window.Spela.play();">play</a>
+                    </div>
+                    <div class="small-3 columns">
+                        <a class="button expand" onclick="window.Spela.pause();">pause</a>
+                    </div>
+                    <div class="small-3 columns">
+                        <a class="button expand" onclick="window.Spela.next();">next</a>
+                    </div>
+                </div>
+                <a href="#" data-dropdown="devices" class="button dropdown secondary expand"><span id="activeDevice"></span></a><br>
+                <ul id="devices" data-dropdown-content class="f-dropdown">
+                </ul>
 
             </div>
-            <div class="small-4 columns">&#160;</div>
+            <div class="small-12 medium-2 large-4 columns hide-for-small">&#160;</div>
         </div>
         <script src="/static/js/vendor/jquery.js"></script>
         <script src="/static/js/vendor/foundation.min.js"></script>
@@ -44,134 +61,9 @@
         <script src="/static/js/vendor/placeholder.js"></script>
         <script src="/static/js/vendor/jquery.autocomplete.js"></script>
         <script src="/static/js/vendor/jquery.cookie.js"></script>
-        <script type="text/javascript">
-            (function ($, window, document) {
-
-                window.Spela = {
-                    auth: function (firstName, lastInitial) {
-                        $.post("/api",
-                            {
-                                auth: true,
-                                first_name:firstName,
-                                last_initial:lastInitial,
-                                device_id: "MacBook Pro"
-                            },
-                            function (resp, status) {
-                                sessionStorage.setItem("user", firstName + lastInitial);
-                                window.location.href = "/";
-                            }
-                        );
-                    },
-                    play: function () {
-                        $.post("/api",
-                            {
-                                update: true,
-                                user: sessionStorage.getItem("user"),
-                                state: "PLAY",
-                                next: false,
-                                previous: false,
-                                device_id: "MacBook Pro"
-                            }
-                        );
-                    },
-                    pause: function () {
-                        $.post("/api",
-                            {
-                                update: true,
-                                user: sessionStorage.getItem("user"),
-                                state: "PAUSE",
-                                next: false,
-                                previous: false,
-                                device_id: "MacBook Pro"
-                            }
-                        );
-                    },
-                    next: function () {
-                        $.post("/api",
-                            {
-                                update: true,
-                                user: sessionStorage.getItem("user"),
-                                state: "PLAY",
-                                next: true,
-                                previous: false,
-                                device_id: "MacBook Pro"
-                            }
-                        );
-                    },
-                    previous: function () {
-                        $.post("/api",
-                            {
-                                update: true,
-                                user: sessionStorage.getItem("user"),
-                                state: "PLAY",
-                                next: false,
-                                previous: true,
-                                device_id: "MacBook Pro"
-                            }
-                        );
-                    }
-
-                };
-
-                $(document).ready(function () {
-                    if (sessionStorage.getItem("user")) {
-                        $("#player").css("display","block");
-                        $.get("/api",
-                            {
-                                user: sessionStorage.getItem("user")
-                            },
-                            function (resp, status) {
-                                if (status !== "success") return;
-                                if ( ! resp) {
-                                    sessionStorage.removeItem("user");
-                                    window.location.href = "/";
-                                    return;
-                                }
-                                $("#trackTitle").html(resp.current.title);
-                            }
-                        );
-                        function refresh() {
-                            $.get("/api",
-                                {
-                                    user: sessionStorage.getItem("user")
-                                },
-                                function (resp, status) {
-                                    if (status !== "success") return;
-                                    if ( ! resp) {
-                                        sessionStorage.removeItem("user");
-                                        window.location.href = "/";
-                                        return;
-                                    }
-                                    $("#trackTitle").html(resp.current.title);
-                                    switch (resp.state) {
-                                        case "PLAY":
-                                            var started = resp.current.started;
-                                            $("#elapsed").html(Math.round((new Date().getTime() - started) / 1000));
-                                            $("#length").html(resp.current.length / 60);
-                                            break;
-                                        case "PAUSE":
-                                            $("#elapsed").html(resp.position);
-                                            $("#length").html(resp.current.length / 60);
-
-
-                                    }
-                                }
-                            );
-                        }
-                        refresh();
-                        window.setInterval(refresh, 1000);
-                        return;
-                    }
-                    $("#auth").css("display","block");
-                    $("#name").focus();
-                    $('#initial').keydown( function(e) {
-                        var key = e.charCode ? e.charCode : e.keyCode ? e.keyCode : 0;
-                        if(key != 13) return;
-                        e.preventDefault();
-                        window.Spela.auth($('#name').val(), $('#initial').val());
-                    });
-                });
-            })(window.jQuery, window, document);
+        <script src="/static/js/spela.js"></script>
+        <script>
+            $(document).foundation();
         </script>
     </body>
 </html>

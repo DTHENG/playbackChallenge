@@ -27,15 +27,27 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 6;
+    return 7;
 }
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    
+    self.isActive = YES;
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    
+    self.isActive = NO;
+}
+
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     switch (indexPath.row) {
         case 0:
             return [tableView dequeueReusableCellWithIdentifier:@"logoCell" forIndexPath:indexPath];
         case 1:
-        case 4:
             return [tableView dequeueReusableCellWithIdentifier:@"blank" forIndexPath:indexPath];
         case 2: {
             UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"songTitleCell" forIndexPath:indexPath];
@@ -51,12 +63,13 @@
             UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"artistCell" forIndexPath:indexPath];
             for (int i = 0; i < [[[cell contentView] subviews] count]; i++) {
                 if ([[[[cell contentView] subviews] objectAtIndex:i] isKindOfClass:[UILabel class]]) {
-                    self.timer = (UILabel *)[[[cell contentView] subviews] objectAtIndex:i];
+                    self.artist = (UILabel *)[[[cell contentView] subviews] objectAtIndex:i];
                     
                     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
                         
-                        while (true) {
+                        while (self.isActive) {
                             
+                            //NSLog(@"api request");
                             NSData *urlData;
                             NSURLResponse *response;
                             NSError *error;
@@ -73,11 +86,27 @@
                                 
                                 if (response == nil) {
                                     [prefs removeObjectForKey:@"auth"];
-                                    [prefs removeObjectForKey:@"user"];
+                                    [prefs removeObjectForKey:@"firstName"];
+                                    [prefs removeObjectForKey:@"lastInitial"];
+                                    [prefs synchronize];
                                     [self performSegueWithIdentifier:@"authSegue" sender:self];
                                     return;
                                 }
-                                NSLog(@"%@",response);
+                                //NSLog(@"%@",response);
+                                
+                                for (int i = 0; i < [[response objectForKey:@"devices"] count]; i++) {
+                                    if ([[[[response objectForKey:@"devices"] objectAtIndex:i] objectForKey:@"is_playing"] boolValue]) {
+                                        dispatch_async(dispatch_get_main_queue(), ^{
+                                            if (self.device_playing != nil) {
+                                                self.device_playing.textLabel.text = [[[response objectForKey:@"devices"] objectAtIndex:i] objectForKey:@"name"];
+                                            }
+                                        });
+                                        break;
+                                    }
+                                }
+                                
+                                
+                                
                                 
                                 if ([[response objectForKey:@"state"] isEqualToString:@"PLAY"]) {
                                     double timestamp = [[response objectForKey:@"current_time"] doubleValue];
@@ -85,20 +114,22 @@
                                     
                                     
                                     double elapsed = (timestamp - started) / 1000;
-                                    double trackLength = [[[response objectForKey:@"current"] objectForKey:@"length"] doubleValue] / 60;
+                                    double trackLength = [[[response objectForKey:@"current"] objectForKey:@"length"] doubleValue];
                                     
                                     dispatch_async(dispatch_get_main_queue(), ^{
-                                        self.timer.text = [NSString stringWithFormat:@"%f of %f", elapsed, trackLength];
+                                        self.progress.progress = elapsed / trackLength;
+                                        self.artist.text = [[response objectForKey:@"current"] objectForKey:@"artist"];
                                         if (self.titleLabel) {
                                             self.titleLabel.text = [[response objectForKey:@"current"] objectForKey:@"title"];
                                         }
                                     });
                                 } else {
                                     double elapsed = [[response objectForKey:@"position"] doubleValue];
-                                    double trackLength = [[[response objectForKey:@"current"] objectForKey:@"length"] doubleValue] / 60;
+                                    double trackLength = [[[response objectForKey:@"current"] objectForKey:@"length"] doubleValue];
                                     
                                     dispatch_async(dispatch_get_main_queue(), ^{
-                                        self.timer.text = [NSString stringWithFormat:@"%f of %f", elapsed, trackLength];
+                                        self.progress.progress = elapsed / trackLength;
+                                        self.artist.text = [[response objectForKey:@"current"] objectForKey:@"artist"];
                                         self.titleLabel.text = [[response objectForKey:@"current"] objectForKey:@"title"];
                                     });
                                 }
@@ -118,6 +149,17 @@
                 }
             }
             return cell;
+        }
+        case 4: {
+            UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"progressCell" forIndexPath:indexPath];
+            for (int i = 0; i < [[[cell contentView] subviews] count]; i++) {
+                if ([[[[cell contentView] subviews] objectAtIndex:i] isKindOfClass:[UIProgressView class]]) {
+                    self.progress = (UIProgressView *)[[[cell contentView] subviews] objectAtIndex:i];
+                    break;
+                }
+            }
+            return cell;
+
         }
         case 5: {
             
@@ -140,6 +182,12 @@
             //[cell addSubview:[self getControlImage:@"pause-active" :160]];
             //[cell addSubview:[self getControlImage:@"next-active" :220]];
 
+            return cell;
+
+        }
+        case 6: {
+            UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"device_playing" forIndexPath:indexPath];
+            self.device_playing = cell;
             return cell;
 
         }
@@ -178,7 +226,7 @@
 
 - (void)update:(BOOL)play :(BOOL)next :(BOOL)previous {
     NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
-    NSString *post = [NSString stringWithFormat:@"&update=true&state=%@&user=%@%@&next=%@&previous=%@&device_id=%@", play ? @"PLAY" : @"PAUSE", [prefs objectForKey:@"firstName"], [prefs objectForKey:@"lastInitial"], next ? @"true" : @"false", previous ? @"true" : @"false", @"iPhone"];
+    NSString *post = [NSString stringWithFormat:@"&update=true&state=%@&user=%@%@&next=%@&previous=%@", play ? @"PLAY" : @"PAUSE", [prefs objectForKey:@"firstName"], [prefs objectForKey:@"lastInitial"], next ? @"true" : @"false", previous ? @"true" : @"false"];
     NSData *postData = [post dataUsingEncoding:NSASCIIStringEncoding allowLossyConversion:YES];
     NSString *postLength = [NSString stringWithFormat:@"%lu",(unsigned long)[postData length]];
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc] init];
