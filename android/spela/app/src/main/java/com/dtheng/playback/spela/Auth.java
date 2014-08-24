@@ -47,12 +47,12 @@ public class Auth extends Base {
                     String lastInitialStr = lastInitial.getText().toString();
                     String deviceId = "Galaxy S3";
                     if (authenticate(firstNameStr, lastInitialStr, deviceId)) {
-
                         User newUser = new User();
                         newUser.firstName = firstNameStr;
                         newUser.lastInitial = lastInitialStr;
                         newUser.id = firstNameStr + lastInitialStr;
                         IO.set(newUser, "user", context);
+                        finish();
                     }
                 }
             }

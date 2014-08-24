@@ -17,9 +17,9 @@
             </intent-filter>
         </activity>
 
-        <meta-data
+        <!--<meta-data
             android:name="com.google.android.gms.version"
-            android:value="@integer/google_play_services_version" />
+            android:value="@integer/google_play_services_version" />-->
 
         <activity
             android:name=".Auth"
@@ -41,7 +41,5 @@
     <!-- To auto-complete the email text field in the login form with the user's emails -->
     <uses-permission android:name="android.permission.READ_PROFILE" />
     <uses-permission android:name="android.permission.READ_CONTACTS" />
-
-    <uses-permission android:name="android.permission.INTERNET"/>
 
 </manifest>
