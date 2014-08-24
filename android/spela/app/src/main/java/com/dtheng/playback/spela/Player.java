@@ -3,7 +3,10 @@ package com.dtheng.playback.spela;
 import android.app.Activity;
 import android.content.ContextWrapper;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
 import android.graphics.Picture;
+import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
@@ -11,7 +14,10 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.dtheng.playback.spela.model.Device;
@@ -21,7 +27,7 @@ import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
 import com.google.gson.reflect.TypeToken;
 import com.larvalabs.svgandroid.SVG;
-import com.larvalabs.svgandroid.SVGParser;
+import com.larvalabs.svgandroid.SVGBuilder;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
@@ -73,11 +79,15 @@ public class Player extends Base {
         pause = (Button)findViewById(R.id.pause);
         next = (Button)findViewById(R.id.next);
 
-        //SVG svg = SVGParser.getSVGFromResource(getResources(), R.raw.filename);
-        //Picture picture = svg.getPicture();
-        //Drawable drawable = svg.createPictureDrawable();
+        SVG playSvg = new SVGBuilder().readFromResource(getResources(), R.raw.play).build();
+        SVG previousSvg = new SVGBuilder().readFromResource(getResources(), R.raw.previous).build();
+        SVG pauseSvg = new SVGBuilder().readFromResource(getResources(), R.raw.pause).build();
+        SVG nextSvg = new SVGBuilder().readFromResource(getResources(), R.raw.next).build();
 
-
+        play.setBackground(playSvg.getDrawable());
+        previous.setBackground(previousSvg.getDrawable());
+        pause.setBackground(pauseSvg.getDrawable());
+        next.setBackground(nextSvg.getDrawable());
 
         title = (TextView)findViewById(R.id.title);
         artist = (TextView)findViewById(R.id.artist);
