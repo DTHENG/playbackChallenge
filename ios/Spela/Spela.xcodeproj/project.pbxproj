@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7A916F4119A94BC60056F00A /* DevicesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A916F4019A94BC60056F00A /* DevicesViewController.m */; };
 		7AA6D49719A6FF8100C40110 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7AA6D49619A6FF8100C40110 /* Foundation.framework */; };
 		7AA6D49919A6FF8100C40110 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7AA6D49819A6FF8100C40110 /* CoreGraphics.framework */; };
 		7AA6D49B19A6FF8100C40110 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7AA6D49A19A6FF8100C40110 /* UIKit.framework */; };
@@ -41,6 +42,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		7A916F3F19A94BC60056F00A /* DevicesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DevicesViewController.h; sourceTree = "<group>"; };
+		7A916F4019A94BC60056F00A /* DevicesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DevicesViewController.m; sourceTree = "<group>"; };
 		7AA6D49319A6FF8100C40110 /* Spela.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Spela.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7AA6D49619A6FF8100C40110 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		7AA6D49819A6FF8100C40110 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -140,6 +143,8 @@
 				7AA6D4D219A6FFF200C40110 /* AuthViewController.m */,
 				7AA6D4D419A7031500C40110 /* PlayViewController.h */,
 				7AA6D4D519A7031500C40110 /* PlayViewController.m */,
+				7A916F3F19A94BC60056F00A /* DevicesViewController.h */,
+				7A916F4019A94BC60056F00A /* DevicesViewController.m */,
 			);
 			path = Spela;
 			sourceTree = "<group>";
@@ -281,6 +286,7 @@
 			files = (
 				7AA6D4D319A6FFF200C40110 /* AuthViewController.m in Sources */,
 				7AA6D4A719A6FF8100C40110 /* AppDelegate.m in Sources */,
+				7A916F4119A94BC60056F00A /* DevicesViewController.m in Sources */,
 				7AA6D4D019A6FFD000C40110 /* BaseTableViewController.m in Sources */,
 				7AA6D4D619A7031500C40110 /* PlayViewController.m in Sources */,
 				7AA6D4A319A6FF8100C40110 /* main.m in Sources */,
@@ -498,6 +504,7 @@
 				7AA6D4CA19A6FF8100C40110 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		7AA6D4CB19A6FF8100C40110 /* Build configuration list for PBXNativeTarget "SpelaTests" */ = {
 			isa = XCConfigurationList;
@@ -506,6 +513,7 @@
 				7AA6D4CD19A6FF8100C40110 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

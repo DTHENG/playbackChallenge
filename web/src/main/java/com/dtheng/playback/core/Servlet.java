@@ -43,6 +43,7 @@ public class Servlet extends HttpServlet {
                     if ((int)(elapsed / 1000L) >= thisUsersData.current.length) {
                         next(thisUsersData);
                         if (thisUsersData.next == null) {
+                            thisUsersData.position = 0;
                             thisUsersData.state = State.PAUSE;
                         }
                     }
@@ -110,19 +111,19 @@ public class Servlet extends HttpServlet {
         if (req.getParameterMap().containsKey("update")) {
 
             String user = req.getParameter("user");
-            State state = State.valueOf(req.getParameter("state"));
-            boolean next = Boolean.parseBoolean(req.getParameter("next"));
-            boolean previous = Boolean.parseBoolean(req.getParameter("previous"));
-            String device_id = req.getParameter("device_id");
-
-            LOG.info("processing update request from "+ user +" - "+ device_id);
 
             if (user != null &&
                     users.containsKey(user)) {
 
                 Response thisUsersData = users.get(user).response;
+                State state = ! req.getParameterMap().containsKey("state") ? thisUsersData.state : State.valueOf(req.getParameter("state"));
+                boolean next = ! req.getParameterMap().containsKey("next") ? false : Boolean.parseBoolean(req.getParameter("next"));
+                boolean previous = ! req.getParameterMap().containsKey("previous") ? false : Boolean.parseBoolean(req.getParameter("previous"));
+                String device_id = ! req.getParameterMap().containsKey("device_id") ? "" : req.getParameter("device_id");
                 State previousState = thisUsersData.state;
                 thisUsersData.state = state;
+
+                LOG.info("processing update request from "+ user +" - "+ device_id);
 
                 switch (state) {
                     case PLAY:
@@ -137,19 +138,21 @@ public class Servlet extends HttpServlet {
                         thisUsersData.position = (int)(timeElapsed / 1000L);
                 }
 
-                for (Device device : thisUsersData.devices) {
-                    if (device.is_playing &&
-                            ! device.name.equals(device_id)) {
-                        for (Device device2 : thisUsersData.devices) {
-                            if (device2.name.equals(device_id)) {
-                                device2.is_playing = true;
-                                continue;
+                if ( ! device_id.equals("")) {
+                    for (Device device : thisUsersData.devices) {
+                        if (device.is_playing &&
+                                !device.name.equals(device_id)) {
+                            for (Device device2 : thisUsersData.devices) {
+                                if (device2.name.equals(device_id)) {
+                                    device2.is_playing = true;
+                                    continue;
+                                }
+                                if (device2.is_playing) {
+                                    device2.is_playing = false;
+                                }
                             }
-                            if (device2.is_playing) {
-                                device2.is_playing = false;
-                            }
+                            break;
                         }
-                        break;
                     }
                 }
 
@@ -206,7 +209,7 @@ public class Servlet extends HttpServlet {
         Track blackSugar = new Track();
         blackSugar.album = "Sticky Fingers";
         blackSugar.artist = "The Rolling Stones";
-        blackSugar.title = "Black Sugar";
+        blackSugar.title = "Brown Sugar";
         blackSugar.length = 229;
         blackSugar.id = 0;
 

@@ -10,4 +10,5 @@ public class Track {
     public String album;
     public Artwork artwork;
     public int length;
+    public long started;
 }

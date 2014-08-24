@@ -30,7 +30,10 @@
             <div class="small-4 columns">&#160;</div>
             <div class="small-4 columns">
                 <p><span id="trackTitle"></span></p>
-                <p><span id="elapsed"></span> of <span id="length"></span></p>
+                <div class="progress small-12 secondary">
+                    <span id="elapsed" class="meter"></span>
+                </div>
+                <h1>&#160;</h1>
                 <a class="button expand" onclick="window.Spela.play();">play</a>
                 <a class="button expand" onclick="window.Spela.pause();">pause</a>
                 <a class="button expand" onclick="window.Spela.next();">next</a>
@@ -45,134 +48,6 @@
         <script src="/static/js/vendor/placeholder.js"></script>
         <script src="/static/js/vendor/jquery.autocomplete.js"></script>
         <script src="/static/js/vendor/jquery.cookie.js"></script>
-        <script type="text/javascript">
-            (function ($, window, document) {
-
-                window.Spela = {
-                    auth: function (firstName, lastInitial) {
-                        $.post("/api",
-                            {
-                                auth: true,
-                                first_name:firstName,
-                                last_initial:lastInitial,
-                                device_id: "MacBook Pro"
-                            },
-                            function (resp, status) {
-                                sessionStorage.setItem("user", firstName + lastInitial);
-                                window.location.href = "/";
-                            }
-                        );
-                    },
-                    play: function () {
-                        $.post("/api",
-                            {
-                                update: true,
-                                user: sessionStorage.getItem("user"),
-                                state: "PLAY",
-                                next: false,
-                                previous: false,
-                                device_id: "MacBook Pro"
-                            }
-                        );
-                    },
-                    pause: function () {
-                        $.post("/api",
-                            {
-                                update: true,
-                                user: sessionStorage.getItem("user"),
-                                state: "PAUSE",
-                                next: false,
-                                previous: false,
-                                device_id: "MacBook Pro"
-                            }
-                        );
-                    },
-                    next: function () {
-                        $.post("/api",
-                            {
-                                update: true,
-                                user: sessionStorage.getItem("user"),
-                                state: "PLAY",
-                                next: true,
-                                previous: false,
-                                device_id: "MacBook Pro"
-                            }
-                        );
-                    },
-                    previous: function () {
-                        $.post("/api",
-                            {
-                                update: true,
-                                user: sessionStorage.getItem("user"),
-                                state: "PLAY",
-                                next: false,
-                                previous: true,
-                                device_id: "MacBook Pro"
-                            }
-                        );
-                    }
-
-                };
-
-                $(document).ready(function () {
-                    if (sessionStorage.getItem("user")) {
-                        $("#player").css("display","block");
-                        $.get("/api",
-                            {
-                                user: sessionStorage.getItem("user")
-                            },
-                            function (resp, status) {
-                                if (status !== "success") return;
-                                if ( ! resp) {
-                                    sessionStorage.removeItem("user");
-                                    window.location.href = "/";
-                                    return;
-                                }
-                                $("#trackTitle").html(resp.current.title);
-                            }
-                        );
-                        function refresh() {
-                            $.get("/api",
-                                {
-                                    user: sessionStorage.getItem("user")
-                                },
-                                function (resp, status) {
-                                    if (status !== "success") return;
-                                    if ( ! resp) {
-                                        sessionStorage.removeItem("user");
-                                        window.location.href = "/";
-                                        return;
-                                    }
-                                    $("#trackTitle").html(resp.current.title);
-                                    switch (resp.state) {
-                                        case "PLAY":
-                                            var started = resp.current.started;
-                                            $("#elapsed").html(Math.round((new Date().getTime() - started) / 1000));
-                                            $("#length").html(resp.current.length / 60);
-                                            break;
-                                        case "PAUSE":
-                                            $("#elapsed").html(resp.position);
-                                            $("#length").html(resp.current.length / 60);
-
-
-                                    }
-                                }
-                            );
-                        }
-                        refresh();
-                        window.setInterval(refresh, 1000);
-                        return;
-                    }
-                    $("#auth").css("display","block");
-                    $("#name").focus();
-                    $('#initial').keydown( function(e) {
-                        var key = e.charCode ? e.charCode : e.keyCode ? e.keyCode : 0;
-                        if(key != 13) return;
-                        e.preventDefault();
-                        window.Spela.auth($('#name').val(), $('#initial').val());
-                    });
-                });
-            })(window.jQuery, window, document);
-        </script>
+        <script src="/static/js/spela.js"></script>
     </body>
 </html>
