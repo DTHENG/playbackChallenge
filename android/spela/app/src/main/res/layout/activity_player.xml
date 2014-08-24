@@ -39,17 +39,18 @@
         android:layout_width="72dp"
         android:layout_height="72dp"
         android:id="@+id/previous"
-        android:background="@drawable/prev_btn"
+        android:background="@drawable/prev"
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/progressBar"
-        android:layout_marginTop="40dp" />
+        android:layout_marginTop="40dp"
+        android:layout_marginLeft="20dp" />
 
     <Button
         style="?android:attr/buttonStyleSmall"
         android:layout_width="72dp"
         android:layout_height="72dp"
         android:id="@+id/play"
-        android:background="@drawable/play_btn"
+        android:background="@drawable/play"
         android:layout_marginLeft="0dp"
         android:layout_below="@+id/progressBar"
         android:layout_marginTop="40dp"
@@ -60,18 +61,23 @@
         android:layout_width="72dp"
         android:layout_height="72dp"
         android:id="@+id/pause"
+        android:background="@drawable/pause"
         android:layout_marginTop="40dp"
         android:layout_below="@+id/progressBar"
-        android:layout_toLeftOf="@+id/next" />
+        android:layout_toLeftOf="@+id/next"
+        android:layout_marginRight="0dp" />
 
     <Button
         style="?android:attr/buttonStyleSmall"
         android:layout_width="72dp"
         android:layout_height="72dp"
         android:id="@+id/next"
+        android:background="@drawable/next"
         android:layout_below="@+id/progressBar"
         android:layout_alignParentRight="true"
-        android:layout_marginTop="40dp" />
+        android:layout_marginTop="40dp"
+        android:layout_marginRight="20dp"
+        android:clickable="false" />
 
     <Button
         android:layout_width="wrap_content"
@@ -81,7 +87,9 @@
         android:layout_marginTop="20dp"
         android:layout_below="@+id/textView"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentRight="true" />
+        android:layout_alignParentRight="true"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp" />
 
     <ProgressBar
         style="?android:attr/progressBarStyleHorizontal"
