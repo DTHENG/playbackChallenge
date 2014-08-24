@@ -1,6 +1,6 @@
 #### Source of: [playback.dtheng.com](http://playback.dtheng.com)
 
-`v0.5`
+`v0.6`
 
 =======
 
