@@ -42,7 +42,8 @@
         android:background="@drawable/prev_btn"
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/progressBar"
-        android:layout_marginTop="40dp" />
+        android:layout_marginTop="40dp"
+        android:layout_marginLeft="20dp" />
 
     <Button
         style="?android:attr/buttonStyleSmall"
@@ -60,18 +61,22 @@
         android:layout_width="72dp"
         android:layout_height="72dp"
         android:id="@+id/pause"
+        android:background="@drawable/pause_btn"
         android:layout_marginTop="40dp"
         android:layout_below="@+id/progressBar"
-        android:layout_toLeftOf="@+id/next" />
+        android:layout_toLeftOf="@+id/next"
+        android:layout_marginRight="0dp" />
 
     <Button
         style="?android:attr/buttonStyleSmall"
         android:layout_width="72dp"
         android:layout_height="72dp"
         android:id="@+id/next"
+        android:background="@drawable/next_btn"
         android:layout_below="@+id/progressBar"
         android:layout_alignParentRight="true"
-        android:layout_marginTop="40dp" />
+        android:layout_marginTop="40dp"
+        android:layout_marginRight="20dp" />
 
     <Button
         android:layout_width="wrap_content"
