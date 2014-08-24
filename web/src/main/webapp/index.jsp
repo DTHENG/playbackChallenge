@@ -36,16 +36,16 @@
                 </div>
                 <div class="row">
                     <div class="small-3 columns">
-                        <a class="button expand" onclick="window.Spela.previous();">prev</a>
+                        <a id="prev" class="button expand" onclick="window.Spela.previous();">prev</a>
                     </div>
                     <div class="small-3 columns">
-                        <a class="button expand" onclick="window.Spela.play();">play</a>
+                        <a id="play" class="button expand" onclick="window.Spela.play();">play</a>
                     </div>
                     <div class="small-3 columns">
-                        <a class="button expand" onclick="window.Spela.pause();">pause</a>
+                        <a id="pause" class="button expand" onclick="window.Spela.pause();">pause</a>
                     </div>
                     <div class="small-3 columns">
-                        <a class="button expand" onclick="window.Spela.next();">next</a>
+                        <a id="next" class="button expand" onclick="window.Spela.next();">next</a>
                     </div>
                 </div>
                 <a href="#" data-dropdown="devices" class="button dropdown secondary expand"><span id="activeDevice"></span></a><br>

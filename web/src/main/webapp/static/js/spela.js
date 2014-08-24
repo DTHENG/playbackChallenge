@@ -104,6 +104,16 @@
                             deviceOptions += "<li><a onclick=\"window.Spela.device('"+ resp.devices[i].name +"');\">"+ resp.devices[i].name +"</a></li>";
                         }
                         devices.html(deviceOptions);
+                        if ( ! resp.next) {
+                            $("#next").addClass("disabled");
+                        } else {
+                            $("#next").removeClass("disabled");
+                        }
+                        if ( ! resp.previous) {
+                            $("#prev").addClass("disabled");
+                        } else {
+                            $("#prev").removeClass("disabled");
+                        }
                         switch (resp.state) {
                             case "PLAY":
                                 var started = resp.current.started;
@@ -111,10 +121,14 @@
                                 var total = resp.current.length;
                                 $("#elapsed").css("width", (elapsed / total * 100).toFixed(0) +"%");
                                 //$("#length").html(resp.current.length / 60);
+                                $("#play").addClass("disabled");
+                                $("#pause").removeClass("disabled");
                                 break;
                             case "PAUSE":
                                 //var elapsed =
                                 $("#elapsed").css("width", (resp.position / resp.current.length * 100).toFixed(0) +"px");
+                                $("#play").removeClass("disabled");
+                                $("#pause").addClass("disabled");
 
                             //$("#length").html(resp.current.length / 60);
 
