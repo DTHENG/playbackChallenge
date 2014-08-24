@@ -22,9 +22,7 @@
                 {
                     update: true,
                     user: sessionStorage.getItem("user"),
-                    state: "PLAY",
-                    next: false,
-                    previous: false
+                    state: "PLAY"
                 }
             );
         },
@@ -33,9 +31,7 @@
                 {
                     update: true,
                     user: sessionStorage.getItem("user"),
-                    state: "PAUSE",
-                    next: false,
-                    previous: false
+                    state: "PAUSE"
                 }
             );
         },
@@ -44,9 +40,7 @@
                 {
                     update: true,
                     user: sessionStorage.getItem("user"),
-                    state: "PLAY",
-                    next: true,
-                    previous: false
+                    next: true
                 }
             );
         },
@@ -55,9 +49,16 @@
                 {
                     update: true,
                     user: sessionStorage.getItem("user"),
-                    state: "PLAY",
-                    next: false,
                     previous: true
+                }
+            );
+        },
+        device: function (id) {
+            $.post("/api",
+                {
+                    update: true,
+                    user: sessionStorage.getItem("user"),
+                    device_id: id
                 }
             );
         }
@@ -100,7 +101,7 @@
                             if (resp.devices[i].is_playing) {
                                 $("#activeDevice").html(resp.devices[i].name);
                             }
-                            deviceOptions += "<li><a href=\"#\">"+ resp.devices[i].name +"</a></li>";
+                            deviceOptions += "<li><a onclick=\"window.Spela.device('"+ resp.devices[i].name +"');\">"+ resp.devices[i].name +"</a></li>";
                         }
                         devices.html(deviceOptions);
                         switch (resp.state) {
