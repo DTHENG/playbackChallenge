@@ -23,17 +23,119 @@
 }
 
 - (IBAction)next:(id)sender {
+    ((UIButton *)sender).enabled = NO;
     [self update:YES :YES :NO];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 7;
+    return 10;
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     
     self.isActive = YES;
+    
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        
+        while (self.isActive) {
+            
+            //NSLog(@"api request");
+            NSData *urlData;
+            NSURLResponse *response;
+            NSError *error;
+            NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+            NSString *url = [NSString stringWithFormat:@"http://playback.dtheng.com/api?user=%@%@", [prefs objectForKey:@"firstName"], [prefs objectForKey:@"lastInitial"]];
+            urlData = [NSURLConnection sendSynchronousRequest:[[NSURLRequest alloc] initWithURL:
+                                                               [[NSURL alloc] initWithString:
+                                                                url]]
+                                            returningResponse:&response
+                                                        error:&error];
+            if (urlData != nil) {
+                NSError *jsonParsingError = nil;
+                NSDictionary *response = [NSJSONSerialization JSONObjectWithData:urlData options:0 error:&jsonParsingError];
+                
+                if (response == nil) {
+                    [prefs removeObjectForKey:@"auth"];
+                    [prefs removeObjectForKey:@"firstName"];
+                    [prefs removeObjectForKey:@"lastInitial"];
+                    [prefs synchronize];
+                    [self performSegueWithIdentifier:@"authSegue" sender:self];
+                    return;
+                }
+                //NSLog(@"%@",response);
+                
+                for (int i = 0; i < [[response objectForKey:@"devices"] count]; i++) {
+                    if ([[[[response objectForKey:@"devices"] objectAtIndex:i] objectForKey:@"is_playing"] boolValue]) {
+                        dispatch_async(dispatch_get_main_queue(), ^{
+                            if (self.device_playing != nil) {
+                                self.device_playing.textLabel.text = [[[response objectForKey:@"devices"] objectAtIndex:i] objectForKey:@"name"];
+                            }
+                        });
+                        break;
+                    }
+                }
+                
+                dispatch_async(dispatch_get_main_queue(), ^{
+
+                    if ([response objectForKey:@"next"] == nil) {
+                        self.next.enabled = NO;
+                    } else {
+                        self.next.enabled = YES;
+                    }
+                    
+                    if ([response objectForKey:@"previous"] == nil) {
+                        self.previous.enabled = NO;
+                    } else {
+                        self.previous.enabled = YES;
+                    }
+                });
+                
+                if ([[response objectForKey:@"state"] isEqualToString:@"PLAY"]) {
+                    
+                    double timestamp = [[response objectForKey:@"current_time"] doubleValue];
+                    double started = [[[response objectForKey:@"current"] objectForKey:@"started"] doubleValue];
+                    
+                    
+                    double elapsed = (timestamp - started) / 1000;
+                    double trackLength = [[[response objectForKey:@"current"] objectForKey:@"length"] doubleValue];
+                    
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        self.playBtn.enabled = NO;
+                        self.pauseBtn.enabled = YES;
+
+                        self.progress.progress = elapsed / trackLength;
+                        self.artist.text = [[response objectForKey:@"current"] objectForKey:@"artist"];
+                        if (self.titleLabel) {
+                            self.titleLabel.text = [[response objectForKey:@"current"] objectForKey:@"title"];
+                        }
+                    });
+                } else {
+                    
+                    
+                    double elapsed = [[response objectForKey:@"position"] doubleValue];
+                    double trackLength = [[[response objectForKey:@"current"] objectForKey:@"length"] doubleValue];
+                    
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        self.playBtn.enabled = YES;
+                        self.pauseBtn.enabled = NO;
+                        
+                        self.progress.progress = elapsed / trackLength;
+                        self.artist.text = [[response objectForKey:@"current"] objectForKey:@"artist"];
+                        self.titleLabel.text = [[response objectForKey:@"current"] objectForKey:@"title"];
+                    });
+                }
+                
+            }
+            
+            
+            [NSThread sleepForTimeInterval:1.0f];
+        }
+        
+        
+    });
+    
+
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -48,6 +150,8 @@
         case 0:
             return [tableView dequeueReusableCellWithIdentifier:@"logoCell" forIndexPath:indexPath];
         case 1:
+        case 5:
+        case 7:
             return [tableView dequeueReusableCellWithIdentifier:@"blank" forIndexPath:indexPath];
         case 2: {
             UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"songTitleCell" forIndexPath:indexPath];
@@ -64,87 +168,6 @@
             for (int i = 0; i < [[[cell contentView] subviews] count]; i++) {
                 if ([[[[cell contentView] subviews] objectAtIndex:i] isKindOfClass:[UILabel class]]) {
                     self.artist = (UILabel *)[[[cell contentView] subviews] objectAtIndex:i];
-                    
-                    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-                        
-                        while (self.isActive) {
-                            
-                            //NSLog(@"api request");
-                            NSData *urlData;
-                            NSURLResponse *response;
-                            NSError *error;
-                            NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
-                            NSString *url = [NSString stringWithFormat:@"http://playback.dtheng.com/api?user=%@%@", [prefs objectForKey:@"firstName"], [prefs objectForKey:@"lastInitial"]];
-                            urlData = [NSURLConnection sendSynchronousRequest:[[NSURLRequest alloc] initWithURL:
-                                                                               [[NSURL alloc] initWithString:
-                                                                                url]]
-                                                            returningResponse:&response
-                                                                        error:&error];
-                            if (urlData != nil) {
-                                NSError *jsonParsingError = nil;
-                                NSDictionary *response = [NSJSONSerialization JSONObjectWithData:urlData options:0 error:&jsonParsingError];
-                                
-                                if (response == nil) {
-                                    [prefs removeObjectForKey:@"auth"];
-                                    [prefs removeObjectForKey:@"firstName"];
-                                    [prefs removeObjectForKey:@"lastInitial"];
-                                    [prefs synchronize];
-                                    [self performSegueWithIdentifier:@"authSegue" sender:self];
-                                    return;
-                                }
-                                //NSLog(@"%@",response);
-                                
-                                for (int i = 0; i < [[response objectForKey:@"devices"] count]; i++) {
-                                    if ([[[[response objectForKey:@"devices"] objectAtIndex:i] objectForKey:@"is_playing"] boolValue]) {
-                                        dispatch_async(dispatch_get_main_queue(), ^{
-                                            if (self.device_playing != nil) {
-                                                self.device_playing.textLabel.text = [[[response objectForKey:@"devices"] objectAtIndex:i] objectForKey:@"name"];
-                                            }
-                                        });
-                                        break;
-                                    }
-                                }
-                                
-                                
-                                
-                                
-                                if ([[response objectForKey:@"state"] isEqualToString:@"PLAY"]) {
-                                    double timestamp = [[response objectForKey:@"current_time"] doubleValue];
-                                    double started = [[[response objectForKey:@"current"] objectForKey:@"started"] doubleValue];
-                                    
-                                    
-                                    double elapsed = (timestamp - started) / 1000;
-                                    double trackLength = [[[response objectForKey:@"current"] objectForKey:@"length"] doubleValue];
-                                    
-                                    dispatch_async(dispatch_get_main_queue(), ^{
-                                        self.progress.progress = elapsed / trackLength;
-                                        self.artist.text = [[response objectForKey:@"current"] objectForKey:@"artist"];
-                                        if (self.titleLabel) {
-                                            self.titleLabel.text = [[response objectForKey:@"current"] objectForKey:@"title"];
-                                        }
-                                    });
-                                } else {
-                                    double elapsed = [[response objectForKey:@"position"] doubleValue];
-                                    double trackLength = [[[response objectForKey:@"current"] objectForKey:@"length"] doubleValue];
-                                    
-                                    dispatch_async(dispatch_get_main_queue(), ^{
-                                        self.progress.progress = elapsed / trackLength;
-                                        self.artist.text = [[response objectForKey:@"current"] objectForKey:@"artist"];
-                                        self.titleLabel.text = [[response objectForKey:@"current"] objectForKey:@"title"];
-                                    });
-                                }
-                                
-                            }
-                            
-                            
-                            [NSThread sleepForTimeInterval:1.0f];
-                        }
-                        
-                        
-                    });
-                    
-                    
-
                     break;
                 }
             }
@@ -161,7 +184,7 @@
             return cell;
 
         }
-        case 5: {
+        case 6: {
             
             
             UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"controls" forIndexPath:indexPath];
@@ -170,10 +193,19 @@
                 id thisItem = [[[cell contentView] subviews] objectAtIndex:i];
                 if ([thisItem isKindOfClass:[UIButton class]]) {
                     UIButton *btn = (UIButton *)thisItem;
-                    /*switch (btn.tag) {
+                    switch (btn.tag) {
                         case 1:
-                            [btn addSubview:[self getControlImage:@"previous-active" :0]];
-                    }*/
+                            self.previous = btn;
+                            break;
+                        case 2:
+                            self.playBtn = btn;
+                            break;
+                        case 3:
+                            self.pauseBtn = btn;
+                            break;
+                        case 4:
+                            self.next = btn;
+                    }
                 }
             }
             //[cell addSubview:[self getControlImage:@"previous-active" :40]];
@@ -185,7 +217,10 @@
             return cell;
 
         }
-        case 6: {
+        case 8: {
+            return [tableView dequeueReusableCellWithIdentifier:@"playingOnCell" forIndexPath:indexPath];
+        }
+        case 9: {
             UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"device_playing" forIndexPath:indexPath];
             self.device_playing = cell;
             return cell;
@@ -221,7 +256,18 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return indexPath.row == 0 ? 80 : 60;
+    switch (indexPath.row) {
+        case 0:
+            return 80;
+        case 1:
+        case 5:
+        case 7:
+            return 20;
+        case 8:
+            return 40;
+        default:
+            return 60;
+    }
 }
 
 - (void)update:(BOOL)play :(BOOL)next :(BOOL)previous {
