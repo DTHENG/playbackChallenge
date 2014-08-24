@@ -41,11 +41,12 @@ public class Servlet extends HttpServlet {
                     long now = new Date().getTime();
                     long elapsed = now - thisUsersData.current.started;
                     if ((int)(elapsed / 1000L) >= thisUsersData.current.length) {
-                        next(thisUsersData);
                         if (thisUsersData.next == null) {
                             thisUsersData.position = 0;
                             thisUsersData.state = State.PAUSE;
+                            break;
                         }
+                        next(thisUsersData);
                     }
             }
 

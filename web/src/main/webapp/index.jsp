@@ -27,20 +27,33 @@
             <div class="small-4 columns">&#160;</div>
         </div>
         <div id="player" style="display: none;" class="row">
-            <div class="small-4 columns">&#160;</div>
-            <div class="small-4 columns">
-                <p><span id="trackTitle"></span></p>
-                <div class="progress small-12 secondary">
+            <div class="small-12 medium-2 large-4 columns hide-for-small">&#160;</div>
+            <div class="small-12 medium-8 large-4 columns">
+                <h1 style="text-align:center;font-weight:800"><span id="trackTitle"></span></h1>
+                <h5 style="text-align:center"><span id="trackArtist"></span></h5>
+                <div class="progress small-12" style="margin-bottom:20px;margin-top:20px">
                     <span id="elapsed" class="meter"></span>
                 </div>
-                <h1>&#160;</h1>
-                <a class="button expand" onclick="window.Spela.play();">play</a>
-                <a class="button expand" onclick="window.Spela.pause();">pause</a>
-                <a class="button expand" onclick="window.Spela.next();">next</a>
-                <a class="button expand" onclick="window.Spela.previous();">previous</a>
+                <div class="row">
+                    <div class="small-3 columns">
+                        <a class="button expand" onclick="window.Spela.previous();">prev</a>
+                    </div>
+                    <div class="small-3 columns">
+                        <a class="button expand" onclick="window.Spela.play();">play</a>
+                    </div>
+                    <div class="small-3 columns">
+                        <a class="button expand" onclick="window.Spela.pause();">pause</a>
+                    </div>
+                    <div class="small-3 columns">
+                        <a class="button expand" onclick="window.Spela.next();">next</a>
+                    </div>
+                </div>
+                <a href="#" data-dropdown="devices" class="button dropdown secondary expand"><span id="activeDevice"></span></a><br>
+                <ul id="devices" data-dropdown-content class="f-dropdown">
+                </ul>
 
             </div>
-            <div class="small-4 columns">&#160;</div>
+            <div class="small-12 medium-2 large-4 columns hide-for-small">&#160;</div>
         </div>
         <script src="/static/js/vendor/jquery.js"></script>
         <script src="/static/js/vendor/foundation.min.js"></script>
@@ -49,5 +62,8 @@
         <script src="/static/js/vendor/jquery.autocomplete.js"></script>
         <script src="/static/js/vendor/jquery.cookie.js"></script>
         <script src="/static/js/spela.js"></script>
+        <script>
+            $(document).foundation();
+        </script>
     </body>
 </html>

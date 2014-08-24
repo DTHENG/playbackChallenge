@@ -56,6 +56,8 @@ public class Player extends Base {
 
     private ContextWrapper context;
 
+    private boolean isAuth;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -116,12 +118,16 @@ public class Player extends Base {
             }
         );
 
+        isAuth = true;
+
         new Timer().schedule(new TimerTask() {
 
             @Override
             public void run() {
                 runOnUiThread(new Runnable() {
                     public void run() {
+
+                        if ( ! isAuth) return;
 
                         InputStream inputStream = null;
                         String result = null;
@@ -143,10 +149,11 @@ public class Player extends Base {
                                 result = convertInputStreamToString(inputStream);
 
                         } catch (Exception e) {
-                            Log.d("InputStream", e.getLocalizedMessage());
+                            //Log.d("InputStream", e.getLocalizedMessage());
                         }
 
                         if (result == null) {
+                            isAuth = false;
                             context.startActivity(new Intent(context, Auth.class));
                             return;
                         }
@@ -154,6 +161,11 @@ public class Player extends Base {
                         try {
                             Response response = new Gson().fromJson(result, new TypeToken<Response>() {}.getType());
 
+                            if (response == null) {
+                                isAuth = false;
+                                context.startActivity(new Intent(context, Auth.class));
+                                return;
+                            }
                             System.out.println(new Gson().toJson(response));
 
                             title.setText(response.current.title);
@@ -185,6 +197,7 @@ public class Player extends Base {
 
 
                         } catch (JsonSyntaxException jse) {
+                            isAuth = false;
                             context.startActivity(new Intent(context, Auth.class));
                         }
                     }
@@ -193,6 +206,11 @@ public class Player extends Base {
         }, 0, 1000);
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        isAuth = true;
+    }
 
     private static String convertInputStreamToString(InputStream inputStream) throws IOException {
         BufferedReader bufferedReader = new BufferedReader( new InputStreamReader(inputStream));

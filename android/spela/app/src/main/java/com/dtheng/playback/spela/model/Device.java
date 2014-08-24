@@ -7,4 +7,9 @@ public class Device {
     public int id;
     public String name;
     public boolean is_playing;
+
+    @Override
+    public String toString() {
+        return name;
+    }
 }

@@ -69,7 +69,7 @@
                         
                         while (self.isActive) {
                             
-                            NSLog(@"api request");
+                            //NSLog(@"api request");
                             NSData *urlData;
                             NSURLResponse *response;
                             NSError *error;
@@ -95,7 +95,7 @@
                                 //NSLog(@"%@",response);
                                 
                                 for (int i = 0; i < [[response objectForKey:@"devices"] count]; i++) {
-                                    if ([[[response objectForKey:@"devices"] objectAtIndex:i] objectForKey:@"is_playing"]) {
+                                    if ([[[[response objectForKey:@"devices"] objectAtIndex:i] objectForKey:@"is_playing"] boolValue]) {
                                         dispatch_async(dispatch_get_main_queue(), ^{
                                             if (self.device_playing != nil) {
                                                 self.device_playing.textLabel.text = [[[response objectForKey:@"devices"] objectAtIndex:i] objectForKey:@"name"];

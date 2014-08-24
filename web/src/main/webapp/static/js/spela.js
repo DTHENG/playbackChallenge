@@ -22,9 +22,7 @@
                 {
                     update: true,
                     user: sessionStorage.getItem("user"),
-                    state: "PLAY",
-                    next: false,
-                    previous: false
+                    state: "PLAY"
                 }
             );
         },
@@ -33,9 +31,7 @@
                 {
                     update: true,
                     user: sessionStorage.getItem("user"),
-                    state: "PAUSE",
-                    next: false,
-                    previous: false
+                    state: "PAUSE"
                 }
             );
         },
@@ -44,9 +40,7 @@
                 {
                     update: true,
                     user: sessionStorage.getItem("user"),
-                    state: "PLAY",
-                    next: true,
-                    previous: false
+                    next: true
                 }
             );
         },
@@ -55,9 +49,16 @@
                 {
                     update: true,
                     user: sessionStorage.getItem("user"),
-                    state: "PLAY",
-                    next: false,
                     previous: true
+                }
+            );
+        },
+        device: function (id) {
+            $.post("/api",
+                {
+                    update: true,
+                    user: sessionStorage.getItem("user"),
+                    device_id: id
                 }
             );
         }
@@ -78,7 +79,6 @@
                         window.location.href = "/";
                         return;
                     }
-                    $("#trackTitle").html(resp.current.title);
                 }
             );
             var updateView = function() {
@@ -94,6 +94,16 @@
                             return;
                         }
                         $("#trackTitle").html(resp.current.title);
+                        $("#trackArtist").html(resp.current.artist);
+                        var deviceOptions = "";
+                        var devices = $("#devices");
+                        for (var i = 0; i < resp.devices.length; i++) {
+                            if (resp.devices[i].is_playing) {
+                                $("#activeDevice").html(resp.devices[i].name);
+                            }
+                            deviceOptions += "<li><a onclick=\"window.Spela.device('"+ resp.devices[i].name +"');\">"+ resp.devices[i].name +"</a></li>";
+                        }
+                        devices.html(deviceOptions);
                         switch (resp.state) {
                             case "PLAY":
                                 var started = resp.current.started;

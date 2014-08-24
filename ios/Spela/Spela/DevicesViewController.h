@@ -10,4 +10,6 @@
 
 @interface DevicesViewController : BaseTableViewController
 
+@property NSArray *devices;
+
 @end
