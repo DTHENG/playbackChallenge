@@ -57,6 +57,7 @@ public class Player extends Base {
     private ContextWrapper context;
 
     private boolean isAuth;
+    private boolean isUpdating;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -128,6 +129,9 @@ public class Player extends Base {
                     public void run() {
 
                         if ( ! isAuth) return;
+                        if (isUpdating) return;
+
+                        isUpdating = true;
 
                         InputStream inputStream = null;
                         String result = null;
@@ -155,6 +159,7 @@ public class Player extends Base {
                         if (result == null) {
                             isAuth = false;
                             context.startActivity(new Intent(context, Auth.class));
+                            isUpdating = false;
                             return;
                         }
 
@@ -164,9 +169,13 @@ public class Player extends Base {
                             if (response == null) {
                                 isAuth = false;
                                 context.startActivity(new Intent(context, Auth.class));
+                                isUpdating = false;
                                 return;
                             }
                             System.out.println(new Gson().toJson(response));
+
+                            previous.setEnabled(response.previous != null);
+                            next.setEnabled(response.next != null);
 
                             title.setText(response.current.title);
                             artist.setText(response.current.artist);
@@ -184,7 +193,8 @@ public class Player extends Base {
                                     double percent = (elapsed / (double) response.current.length) * 100d;
 
                                     progressBar.setProgress((int) percent);
-
+                                    play.setEnabled(false);
+                                    pause.setEnabled(true);
                                     break;
                                 }
                                 case PAUSE: {
@@ -192,6 +202,8 @@ public class Player extends Base {
                                     double percent = (elapsed / (double) response.current.length) * 100d;
 
                                     progressBar.setProgress((int) percent);
+                                    play.setEnabled(true);
+                                    pause.setEnabled(false);
                                 }
                             }
 
@@ -200,6 +212,7 @@ public class Player extends Base {
                             isAuth = false;
                             context.startActivity(new Intent(context, Auth.class));
                         }
+                        isUpdating = false;
                     }
                 });
             }
