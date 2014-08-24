@@ -19,7 +19,8 @@
         android:layout_alignParentRight="true"
         android:gravity="center"
         android:textSize="30sp"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        android:singleLine="true" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -41,7 +42,7 @@
         android:id="@+id/previous"
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/progressBar"
-        android:layout_marginTop="20dp" />
+        android:layout_marginTop="40dp" />
 
     <Button
         style="?android:attr/buttonStyleSmall"
@@ -52,7 +53,7 @@
         android:layout_toRightOf="@+id/previous"
         android:layout_marginLeft="21dp"
         android:layout_below="@+id/progressBar"
-        android:layout_marginTop="20dp" />
+        android:layout_marginTop="40dp" />
 
     <Button
         style="?android:attr/buttonStyleSmall"
@@ -60,7 +61,7 @@
         android:layout_height="wrap_content"
         android:text="pause"
         android:id="@+id/pause"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="40dp"
         android:layout_below="@+id/progressBar"
         android:layout_alignRight="@+id/next"
         android:layout_marginRight="80dp" />
@@ -73,7 +74,7 @@
         android:id="@+id/next"
         android:layout_below="@+id/progressBar"
         android:layout_alignParentRight="true"
-        android:layout_marginTop="20dp" />
+        android:layout_marginTop="40dp" />
 
     <Button
         android:layout_width="wrap_content"
@@ -93,7 +94,7 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
         android:layout_below="@+id/artist"
-        android:layout_marginTop="30dp" />
+        android:layout_marginTop="60dp" />
 
     <TextView
         android:layout_width="wrap_content"

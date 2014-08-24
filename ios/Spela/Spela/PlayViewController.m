@@ -28,7 +28,7 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 8;
+    return 10;
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -150,6 +150,8 @@
         case 0:
             return [tableView dequeueReusableCellWithIdentifier:@"logoCell" forIndexPath:indexPath];
         case 1:
+        case 5:
+        case 7:
             return [tableView dequeueReusableCellWithIdentifier:@"blank" forIndexPath:indexPath];
         case 2: {
             UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"songTitleCell" forIndexPath:indexPath];
@@ -182,7 +184,7 @@
             return cell;
 
         }
-        case 5: {
+        case 6: {
             
             
             UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"controls" forIndexPath:indexPath];
@@ -215,10 +217,10 @@
             return cell;
 
         }
-        case 6: {
+        case 8: {
             return [tableView dequeueReusableCellWithIdentifier:@"playingOnCell" forIndexPath:indexPath];
         }
-        case 7: {
+        case 9: {
             UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"device_playing" forIndexPath:indexPath];
             self.device_playing = cell;
             return cell;
@@ -254,7 +256,18 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return indexPath.row == 0 ? 80 : 60;
+    switch (indexPath.row) {
+        case 0:
+            return 80;
+        case 1:
+        case 5:
+        case 7:
+            return 20;
+        case 8:
+            return 40;
+        default:
+            return 60;
+    }
 }
 
 - (void)update:(BOOL)play :(BOOL)next :(BOOL)previous {
