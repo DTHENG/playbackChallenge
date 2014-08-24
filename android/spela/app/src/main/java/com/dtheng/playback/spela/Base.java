@@ -11,6 +11,7 @@ import android.view.MenuItem;
 import com.dtheng.playback.spela.model.Response;
 import com.dtheng.playback.spela.model.User;
 import com.google.gson.Gson;
+import com.google.gson.JsonSyntaxException;
 import com.google.gson.reflect.TypeToken;
 
 import org.apache.http.HttpResponse;
@@ -36,51 +37,9 @@ public class Base extends Activity {
 
         if (IO.get("user", new TypeToken<User>(){}.getType(), this) == null) {
             startActivity(new Intent(this, Auth.class));
-            return;
         }
-
-        InputStream inputStream = null;
-        String result = "";
-        try {
-
-            // create HttpClient
-            HttpClient httpclient = new DefaultHttpClient();
-
-            // make GET request to the given URL
-            HttpResponse httpResponse = httpclient.execute(
-                    new HttpGet("http://playback.dtheng.com/api?user="+
-                        ((User) IO.get("user", new TypeToken<User>(){}.getType(), this)).id));
-
-            // receive response as inputStream
-            inputStream = httpResponse.getEntity().getContent();
-
-            // convert inputstream to string
-            if(inputStream != null)
-                result = convertInputStreamToString(inputStream);
-            else
-                result = "Did not work!";
-
-        } catch (Exception e) {
-            Log.d("InputStream", e.getLocalizedMessage());
-        }
-
-        Response response = new Gson().fromJson(result, new TypeToken<Response>(){}.getType());
-
-        System.out.println(new Gson().toJson(response));
-
     }
 
-    private static String convertInputStreamToString(InputStream inputStream) throws IOException {
-        BufferedReader bufferedReader = new BufferedReader( new InputStreamReader(inputStream));
-        String line = "";
-        String result = "";
-        while((line = bufferedReader.readLine()) != null)
-            result += line;
-
-        inputStream.close();
-        return result;
-
-    }
 
 
 
