@@ -77,16 +77,6 @@ public class Player extends Base {
         pause = (Button)findViewById(R.id.pause);
         next = (Button)findViewById(R.id.next);
 
-        /*SVG playSvg = new SVGBuilder().readFromResource(getResources(), R.raw.play).build();
-        SVG previousSvg = new SVGBuilder().readFromResource(getResources(), R.raw.previous).build();
-        SVG pauseSvg = new SVGBuilder().readFromResource(getResources(), R.raw.pause).build();
-        SVG nextSvg = new SVGBuilder().readFromResource(getResources(), R.raw.next).build();
-
-        play.setBackground(playSvg.getDrawable());
-        previous.setBackground(previousSvg.getDrawable());
-        pause.setBackground(pauseSvg.getDrawable());
-        next.setBackground(nextSvg.getDrawable());  */
-
         title = (TextView)findViewById(R.id.title);
         artist = (TextView)findViewById(R.id.artist);
 
@@ -191,21 +181,17 @@ public class Player extends Base {
                                 return;
                             }
 
-                            /*if (response.previous != null) {
-                                SVG previousSvg = new SVGBuilder().readFromResource(getResources(), R.raw.previous).build();
-                                previous.setBackground(previousSvg.getDrawable());
+                            if (response.previous == null) {
+                                previous.setBackgroundResource(R.drawable.prev_btn_disabled);
                             } else {
-                                SVG previousSvg = new SVGBuilder().readFromResource(getResources(), R.raw.previous_disabled).build();
-                                previous.setBackground(previousSvg.getDrawable());
+                                previous.setBackgroundResource(R.drawable.prev);
                             }
 
-                            if (response.next != null) {
-                                SVG nextSvg = new SVGBuilder().readFromResource(getResources(), R.raw.next).build();
-                                next.setBackground(nextSvg.getDrawable());
+                            if (response.next == null) {
+                                next.setBackgroundResource(R.drawable.next_btn_disabled);
                             } else {
-                                SVG nextSvg = new SVGBuilder().readFromResource(getResources(), R.raw.next_disabled).build();
-                                next.setBackground(nextSvg.getDrawable());
-                            }  */
+                                next.setBackgroundResource(R.drawable.next);
+                            }
 
                             title.setText(response.current.title);
                             artist.setText(response.current.artist);
@@ -224,10 +210,8 @@ public class Player extends Base {
 
                                     progressBar.setProgress((int) percent);
 
-                                    /*SVG playSvg = new SVGBuilder().readFromResource(getResources(), R.raw.play_active).build();
-                                    SVG pauseSvg = new SVGBuilder().readFromResource(getResources(), R.raw.pause).build();
-                                    play.setBackground(playSvg.getDrawable());
-                                    pause.setBackground(pauseSvg.getDrawable()); */
+                                    play.setBackgroundResource(R.drawable.play_btn_active);
+                                    pause.setBackgroundResource(R.drawable.pause);
                                     break;
                                 }
                                 case PAUSE: {
@@ -235,10 +219,8 @@ public class Player extends Base {
                                     double percent = (elapsed / (double) response.current.length) * 100d;
 
                                     progressBar.setProgress((int) percent);
-                                    /*SVG playSvg = new SVGBuilder().readFromResource(getResources(), R.raw.play).build();
-                                    SVG pauseSvg = new SVGBuilder().readFromResource(getResources(), R.raw.pause_active).build();
-                                    play.setBackground(playSvg.getDrawable());
-                                    pause.setBackground(pauseSvg.getDrawable());  */
+                                    play.setBackgroundResource(R.drawable.play);
+                                    pause.setBackgroundResource(R.drawable.pause_btn_active);
                                 }
                             }
 
