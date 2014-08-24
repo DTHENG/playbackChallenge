@@ -28,7 +28,7 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 7;
+    return 8;
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -216,6 +216,9 @@
 
         }
         case 6: {
+            return [tableView dequeueReusableCellWithIdentifier:@"playingOnCell" forIndexPath:indexPath];
+        }
+        case 7: {
             UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"device_playing" forIndexPath:indexPath];
             self.device_playing = cell;
             return cell;
