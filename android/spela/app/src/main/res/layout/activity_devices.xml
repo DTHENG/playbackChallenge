@@ -3,4 +3,5 @@
     android:id="@+id/content"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:ignore="MergeRootFrame"/>
+    tools:ignore="MergeRootFrame"
+    tools:context="com.dtheng.playback.spela.Devices"/>

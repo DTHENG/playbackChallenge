@@ -56,6 +56,9 @@
         default: {
             UITableViewCell *deviceCell = [tableView dequeueReusableCellWithIdentifier:@"deviceCell" forIndexPath:indexPath];
             deviceCell.textLabel.text = [[self.devices objectAtIndex:indexPath.row -1] objectForKey:@"name"];
+            if ([[[self.devices objectAtIndex:indexPath.row -1] objectForKey:@"is_playing"] boolValue]) {
+                deviceCell.accessoryType = UITableViewCellAccessoryCheckmark;
+            }
             return deviceCell;
             //return [tableView dequeueReusableCellWithIdentifier:@"blank" forIndexPath:indexPath];
         }
@@ -66,7 +69,12 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return indexPath.row == 0 ? 80 : 60;
+    switch (indexPath.row) {
+        case 0:
+            return 80;
+        default:
+            return 50;
+    }
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {

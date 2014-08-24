@@ -15,5 +15,9 @@
 @property UITableViewCell *device_playing;
 @property BOOL isActive;
 @property UIProgressView *progress;
+@property UIButton *previous;
+@property UIButton *playBtn;
+@property UIButton *pauseBtn;
+@property UIButton *next;
 
 @end
