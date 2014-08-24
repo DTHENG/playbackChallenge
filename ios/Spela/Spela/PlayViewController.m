@@ -27,7 +27,7 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 8;
+    return 7;
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -48,8 +48,6 @@
         case 0:
             return [tableView dequeueReusableCellWithIdentifier:@"logoCell" forIndexPath:indexPath];
         case 1:
-        case 4:
-        case 6:
             return [tableView dequeueReusableCellWithIdentifier:@"blank" forIndexPath:indexPath];
         case 2: {
             UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"songTitleCell" forIndexPath:indexPath];
@@ -65,7 +63,7 @@
             UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"artistCell" forIndexPath:indexPath];
             for (int i = 0; i < [[[cell contentView] subviews] count]; i++) {
                 if ([[[[cell contentView] subviews] objectAtIndex:i] isKindOfClass:[UILabel class]]) {
-                    self.timer = (UILabel *)[[[cell contentView] subviews] objectAtIndex:i];
+                    self.artist = (UILabel *)[[[cell contentView] subviews] objectAtIndex:i];
                     
                     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
                         
@@ -119,7 +117,8 @@
                                     double trackLength = [[[response objectForKey:@"current"] objectForKey:@"length"] doubleValue];
                                     
                                     dispatch_async(dispatch_get_main_queue(), ^{
-                                        self.timer.text = [NSString stringWithFormat:@"%d", (int)(elapsed / trackLength * 100)];
+                                        self.progress.progress = elapsed / trackLength;
+                                        self.artist.text = [[response objectForKey:@"current"] objectForKey:@"artist"];
                                         if (self.titleLabel) {
                                             self.titleLabel.text = [[response objectForKey:@"current"] objectForKey:@"title"];
                                         }
@@ -129,7 +128,8 @@
                                     double trackLength = [[[response objectForKey:@"current"] objectForKey:@"length"] doubleValue];
                                     
                                     dispatch_async(dispatch_get_main_queue(), ^{
-                                        self.timer.text = [NSString stringWithFormat:@"%d", (int)(elapsed / trackLength * 100)];
+                                        self.progress.progress = elapsed / trackLength;
+                                        self.artist.text = [[response objectForKey:@"current"] objectForKey:@"artist"];
                                         self.titleLabel.text = [[response objectForKey:@"current"] objectForKey:@"title"];
                                     });
                                 }
@@ -149,6 +149,17 @@
                 }
             }
             return cell;
+        }
+        case 4: {
+            UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"progressCell" forIndexPath:indexPath];
+            for (int i = 0; i < [[[cell contentView] subviews] count]; i++) {
+                if ([[[[cell contentView] subviews] objectAtIndex:i] isKindOfClass:[UIProgressView class]]) {
+                    self.progress = (UIProgressView *)[[[cell contentView] subviews] objectAtIndex:i];
+                    break;
+                }
+            }
+            return cell;
+
         }
         case 5: {
             
@@ -174,7 +185,7 @@
             return cell;
 
         }
-        case 7: {
+        case 6: {
             UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"device_playing" forIndexPath:indexPath];
             self.device_playing = cell;
             return cell;

@@ -11,8 +11,9 @@
 @interface PlayViewController : BaseTableViewController
 
 @property UILabel *titleLabel;
-@property UILabel *timer;
+@property UILabel *artist;
 @property UITableViewCell *device_playing;
 @property BOOL isActive;
+@property UIProgressView *progress;
 
 @end
