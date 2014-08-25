@@ -1,10 +1,22 @@
 package com.dtheng.playback.spela.model;
 
 /**
- * Created by danielthengvall on 8/22/14.
+ * author : Daniel Thengvall
  */
 public class Artwork {
+
+    /**
+     * Small graphic
+     */
     public String small;
+
+    /**
+     * Medium graphic
+     */
     public String medium;
+
+    /**
+     * Large graphic
+     */
     public String large;
 }

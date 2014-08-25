@@ -1,7 +1,7 @@
 package com.dtheng.playback.spela.model;
 
 /**
- * Created by danielthengvall on 8/22/14.
+ * author : Daniel Thengvall
  */
 public enum State {
     PLAY, PAUSE

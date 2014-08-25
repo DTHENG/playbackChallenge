@@ -1,11 +1,19 @@
 package com.dtheng.playback.model;
 
 /**
- * Created by danielthengvall on 8/23/14.
+ * @author Daniel Thengvall
  */
 public class CurrentTrack extends Track {
+
+    /**
+     * When the track started playing
+     */
     public long started;
 
+    /**
+     * Create current track object from this object
+     * @return
+     */
     public Track toTrack() {
         Track newTrack = new Track();
         newTrack.album = album;
