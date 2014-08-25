@@ -35,7 +35,7 @@
                 <p style="text-align:center"><span id="trackArtist"></span></p>
                 <h6>&#160;</h6>
                 <div class="progress small-12">
-                    <span id="elapsed" class="meter"></span>
+                    <span id="elapsed" class="meter" style="color:#2980b8;"></span>
                 </div>
                 <h6>&#160;</h6>
                 <div class="row">
