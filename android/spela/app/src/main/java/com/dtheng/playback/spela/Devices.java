@@ -39,109 +39,58 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by danielthengvall on 8/23/14.
+ * author : Daniel Thengvall
  */
 public class Devices extends ListActivity {
-    TextView content;
 
     private List<Device> devices;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.devices_list);
-
-
         if (devices == null) {
             InputStream inputStream = null;
             String result = null;
             try {
-
-                // create HttpClient
                 HttpClient httpclient = new DefaultHttpClient();
-
-                // make GET request to the given URL
                 HttpResponse httpResponse = httpclient.execute(
                         new HttpGet("http://playback.dtheng.com/api?user=" +
                                 ((User) IO.get("user", new TypeToken<User>() {
                                 }.getType(), this)).id));
-
-                // receive response as inputStream
                 inputStream = httpResponse.getEntity().getContent();
-
-                // convert inputstream to string
                 if (inputStream != null)
                     result = convertInputStreamToString(inputStream);
-
             } catch (Exception e) {
-                //Log.d("InputStream", e.getLocalizedMessage());
             }
-
             if (result == null) {
                 devices = new ArrayList<Device>();
                 return;
             }
-
             Response response = new Gson().fromJson(result, new TypeToken<Response>() {}.getType());
-
             devices = response.devices;
         }
-
-        //content = (TextView)findViewById(R.id.output);
-
-        //listView = (ListView) findViewById(R.id.list);
-
-        // Define a new Adapter
-        // First parameter - Context
-        // Second parameter - Layout for the row
-        // Third - the Array of data
-
         ArrayAdapter<Device> adapter = new ArrayAdapter<Device>(this,
                 android.R.layout.simple_list_item_1, devices);
-
-
-        // Assign adapter to List
         setListAdapter(adapter);
     }
 
-
     @Override
     protected void onListItemClick(ListView l, View v, int position, long id) {
-
         super.onListItemClick(l, v, position, id);
-
-
         HttpClient httpclient = new DefaultHttpClient();
         HttpPost httppost = new HttpPost("http://playback.dtheng.com/api");
-
         try {
-            // Add your data
             List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(2);
             nameValuePairs.add(new BasicNameValuePair("update", "true"));
             nameValuePairs.add(new BasicNameValuePair("user", ((User) IO.get("user", new TypeToken<User>() {}.getType(), this)).id));
             nameValuePairs.add(new BasicNameValuePair("device_id", devices.get(position) +""));
             httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
-
-            // Execute HTTP Post Request
-            HttpResponse response = httpclient.execute(httppost);
-
+            httpclient.execute(httppost);
         } catch (ClientProtocolException e) {
-            // TODO Auto-generated catch block
         } catch (IOException e) {
-            // TODO Auto-generated catch block
         }
-
         finish();
-        /*
-        // ListView Clicked item index
-        int itemPosition     = position;
-
-        // ListView Clicked item value
-        String  itemValue    = (String) l.getItemAtPosition(position);
-
-        content.setText("Click : \n  Position :"+itemPosition+"  \n  ListItem : " +itemValue);
-          */
     }
 
     private static String convertInputStreamToString(InputStream inputStream) throws IOException {
@@ -150,10 +99,7 @@ public class Devices extends ListActivity {
         String result = "";
         while((line = bufferedReader.readLine()) != null)
             result += line;
-
         inputStream.close();
         return result;
-
     }
-
 }
