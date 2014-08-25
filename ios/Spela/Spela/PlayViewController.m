@@ -259,8 +259,9 @@
     switch (indexPath.row) {
         case 0:
             return 80;
-        case 1:
         case 5:
+            return 5;
+        case 1:
         case 7:
             return 20;
         case 8:
