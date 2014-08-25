@@ -1,12 +1,6 @@
-//
-//  DevicesViewController.m
-//  Spela
-//
-//  Created by Daniel Thengvall on 8/23/14.
-//  Copyright (c) 2014 Daniel Thengvall. All rights reserved.
-//
-
 #import "DevicesViewController.h"
+
+// author : Daniel Thengvall
 
 @implementation DevicesViewController
 
@@ -18,15 +12,10 @@
     NSError *error;
     NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
     NSString *url = [NSString stringWithFormat:@"http://playback.dtheng.com/api?user=%@%@", [prefs objectForKey:@"firstName"], [prefs objectForKey:@"lastInitial"]];
-    urlData = [NSURLConnection sendSynchronousRequest:[[NSURLRequest alloc] initWithURL:
-                                                       [[NSURL alloc] initWithString:
-                                                        url]]
-                                    returningResponse:&response
-                                                error:&error];
+    urlData = [NSURLConnection sendSynchronousRequest:[[NSURLRequest alloc] initWithURL: [[NSURL alloc] initWithString: url]] returningResponse:&response error:&error];
     if (urlData != nil) {
         NSError *jsonParsingError = nil;
         NSDictionary *response = [NSJSONSerialization JSONObjectWithData:urlData options:0 error:&jsonParsingError];
-        
         if (response == nil) {
             [prefs removeObjectForKey:@"auth"];
             [prefs removeObjectForKey:@"firstName"];
@@ -35,19 +24,13 @@
             [self performSegueWithIdentifier:@"authSegue" sender:self];
             return;
         }
-        
         self.devices = [response objectForKey:@"devices"];
-        
-        
     }
-    
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return 1 + [self.devices count];
 }
-
-
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     switch (indexPath.row) {
@@ -60,9 +43,7 @@
                 deviceCell.accessoryType = UITableViewCellAccessoryCheckmark;
             }
             return deviceCell;
-            //return [tableView dequeueReusableCellWithIdentifier:@"blank" forIndexPath:indexPath];
         }
-        
     }
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"blank" forIndexPath:indexPath];
     return cell;
@@ -90,7 +71,6 @@
         [request setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"Current-Type"];
         [request setHTTPBody:postData];
         NSURLConnection *conn = [[NSURLConnection alloc]initWithRequest:request delegate:self];
-        
         [self dismissViewControllerAnimated:YES completion:nil];
     }
 }

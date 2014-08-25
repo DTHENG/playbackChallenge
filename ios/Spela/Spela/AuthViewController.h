@@ -1,16 +1,13 @@
-//
-//  AuthViewController.h
-//  Spela
-//
-//  Created by Daniel Thengvall on 8/21/14.
-//  Copyright (c) 2014 Daniel Thengvall. All rights reserved.
-//
-
 #import "BaseTableViewController.h"
+
+// author : Daniel Thengvall
 
 @interface AuthViewController : BaseTableViewController
 
+// where the inputed first name is stored
 @property NSString *firstName;
+
+// where the inputed last initial is stored
 @property NSString *lastInitial;
 
 @end

@@ -1,15 +1,10 @@
-//
-//  DevicesViewController.h
-//  Spela
-//
-//  Created by Daniel Thengvall on 8/23/14.
-//  Copyright (c) 2014 Daniel Thengvall. All rights reserved.
-//
-
 #import "BaseTableViewController.h"
+
+// author : Daniel Thengvall
 
 @interface DevicesViewController : BaseTableViewController
 
+// List of known devices
 @property NSArray *devices;
 
 @end
