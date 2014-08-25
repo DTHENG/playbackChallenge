@@ -1,16 +1,44 @@
 package com.dtheng.playback.model;
 
 /**
- * Created by danielthengvall on 8/22/14.
+ * @author Daniel Thengvall
  */
 public class Track {
+
+    /**
+     * Numeric identifier
+     */
     public int id;
+
+    /**
+     * The name of the song
+     */
     public String title;
+
+    /**
+     * The artist of the song
+     */
     public String artist;
+
+    /**
+     * The album the song appeared on
+     */
     public String album;
+
+    /**
+     * Graphic assets
+     */
     public Artwork artwork;
+
+    /**
+     * The length of the song in seconds
+     */
     public int length;
 
+    /**
+     * Creates new current track object from this track
+     * @return
+     */
     public CurrentTrack toCurrentTrack() {
         CurrentTrack newCurrent = new CurrentTrack();
         newCurrent.id = id;

@@ -1,23 +1,12 @@
 package com.dtheng.playback.spela;
 
-import android.app.Activity;
 import android.content.ContextWrapper;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.Canvas;
-import android.graphics.Picture;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.ProgressBar;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.dtheng.playback.spela.model.Device;
@@ -41,13 +30,14 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
+/**
+ * author : Daniel Thengvall
+ */
 public class Player extends Base {
 
     private Button previous;
@@ -76,14 +66,10 @@ public class Player extends Base {
         play = (Button)findViewById(R.id.play);
         pause = (Button)findViewById(R.id.pause);
         next = (Button)findViewById(R.id.next);
-
         title = (TextView)findViewById(R.id.title);
         artist = (TextView)findViewById(R.id.artist);
-
         devices = (Button)findViewById(R.id.device);
-
         progressBar = (ProgressBar)findViewById(R.id.progressBar);
-
         context = this;
 
         devices.setOnClickListener(
@@ -94,15 +80,13 @@ public class Player extends Base {
                 }
             }
         );
-
         previous.setOnClickListener(
-                new View.OnClickListener() {
-                    public void onClick(View view) {
-                        update(true, false, true, context);
-                    }
+            new View.OnClickListener() {
+                public void onClick(View view) {
+                    update(true, false, true, context);
                 }
+            }
         );
-
         play.setOnClickListener(
             new View.OnClickListener() {
                 public void onClick(View view) {
@@ -110,7 +94,6 @@ public class Player extends Base {
                 }
             }
         );
-
         pause.setOnClickListener(
             new View.OnClickListener() {
                 public void onClick(View view) {
@@ -118,7 +101,6 @@ public class Player extends Base {
                 }
             }
         );
-
         next.setOnClickListener(
             new View.OnClickListener() {
                 public void onClick(View view) {
@@ -126,90 +108,63 @@ public class Player extends Base {
                 }
             }
         );
-
         isAuth = true;
-
         new Timer().schedule(new TimerTask() {
-
             @Override
             public void run() {
                 runOnUiThread(new Runnable() {
                     public void run() {
-
-                        if ( ! isAuth) return;
-                        if (isUpdating) return;
-
+                        if ( ! isAuth || isUpdating) return;
                         isUpdating = true;
-
                         InputStream inputStream = null;
                         String result = null;
                         try {
-
-                            // create HttpClient
                             HttpClient httpclient = new DefaultHttpClient();
-
-                            // make GET request to the given URL
                             HttpResponse httpResponse = httpclient.execute(
                                     new HttpGet("http://playback.dtheng.com/api?user="+
                                             ((User) IO.get("user", new TypeToken<User>(){}.getType(), context)).id));
-
-                            // receive response as inputStream
                             inputStream = httpResponse.getEntity().getContent();
-
-                            // convert inputstream to string
                             if(inputStream != null)
                                 result = convertInputStreamToString(inputStream);
-
                         } catch (Exception e) {
-                            //Log.d("InputStream", e.getLocalizedMessage());
                         }
-
                         if (result == null) {
                             isAuth = false;
                             context.startActivity(new Intent(context, Auth.class));
                             isUpdating = false;
                             return;
                         }
-
                         try {
                             Response response = new Gson().fromJson(result, new TypeToken<Response>() {}.getType());
-
                             if (response == null) {
                                 isAuth = false;
                                 context.startActivity(new Intent(context, Auth.class));
                                 isUpdating = false;
                                 return;
                             }
-
                             if (response.previous == null) {
                                 previous.setBackgroundResource(R.drawable.prev_btn_disabled);
                             } else {
                                 previous.setBackgroundResource(R.drawable.prev);
                             }
-
                             if (response.next == null) {
                                 next.setBackgroundResource(R.drawable.next_btn_disabled);
                             } else {
                                 next.setBackgroundResource(R.drawable.next);
                             }
-
                             title.setText(response.current.title);
                             artist.setText(response.current.artist);
-
                             for (Device device : response.devices) {
                                 if (device.is_playing) {
                                     devices.setText(device.name);
                                     break;
                                 }
                             }
-
                             switch (response.state) {
                                 case PLAY: {
                                     double elapsed = (double) (response.current_time - response.current.started) / 1000d;
                                     double percent = (elapsed / (double) response.current.length) * 100d;
-
                                     progressBar.setProgress((int) percent);
-
                                     play.setBackgroundResource(R.drawable.play_btn_active);
                                     pause.setBackgroundResource(R.drawable.pause);
                                     break;
@@ -217,14 +172,11 @@ public class Player extends Base {
                                 case PAUSE: {
                                     double elapsed = (double) response.position;
                                     double percent = (elapsed / (double) response.current.length) * 100d;
-
                                     progressBar.setProgress((int) percent);
                                     play.setBackgroundResource(R.drawable.play);
                                     pause.setBackgroundResource(R.drawable.pause_btn_active);
                                 }
                             }
-
-
                         } catch (JsonSyntaxException jse) {
                             isAuth = false;
                             context.startActivity(new Intent(context, Auth.class));
@@ -248,21 +200,14 @@ public class Player extends Base {
         String result = "";
         while((line = bufferedReader.readLine()) != null)
             result += line;
-
         inputStream.close();
         return result;
-
     }
 
     private static boolean update(boolean play, boolean next, boolean previous, ContextWrapper context) {
-
-
-        // Create a new HttpClient and Post Header
         HttpClient httpclient = new DefaultHttpClient();
         HttpPost httppost = new HttpPost("http://playback.dtheng.com/api");
-
         try {
-            // Add your data
             List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
             nameValuePairs.add(new BasicNameValuePair("update", "true"));
             nameValuePairs.add(new BasicNameValuePair("user", ((User) IO.get("user", new TypeToken<User>(){}.getType(), context)).id));
@@ -270,33 +215,17 @@ public class Player extends Base {
             nameValuePairs.add(new BasicNameValuePair("next", next +""));
             nameValuePairs.add(new BasicNameValuePair("previous", previous +""));
             httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
-
-            // Execute HTTP Post Request
-            HttpResponse response = httpclient.execute(httppost);
-
+            httpclient.execute(httppost);
             return true;
-
         } catch (ClientProtocolException e) {
-            // TODO Auto-generated catch block
         } catch (IOException e) {
-            // TODO Auto-generated catch block
         }
         return false;
     }
 
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.player, menu);
         return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        return super.onOptionsItemSelected(item);
     }
 }

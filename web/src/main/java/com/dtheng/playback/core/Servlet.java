@@ -18,66 +18,109 @@ public class Servlet extends HttpServlet {
 
     private static final Logger LOG = Logger.getLogger(Servlet.class.getSimpleName());
 
+    /**
+     * Holds list of available tracks
+     */
     private static final List<Track> availableTracks = new ArrayList<Track>();
 
+    /**
+     * Holds list of users
+     */
     private static final Map<String, User> users = new HashMap<String, User>();
 
+    /**
+     * Processes info requests
+     * @param req
+     * @param res
+     * @throws IOException
+     */
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse res) throws IOException {
 
         String user = req.getParameter("user");
 
-        if (user != null &&
-                users.containsKey(user)) {
+        /**
+         * Confirm user param and that they exist
+         */
+        if (user == null ||
+                ! users.containsKey(user)) return;
 
-            LOG.info("processing get request from "+ user);
+        /**
+         * Get users data
+         */
+        Response thisUsersData = users.get(user).response;
+        switch (thisUsersData.state) {
+            case PLAY:
 
-            Response thisUsersData = users.get(user).response;
-
-            switch (thisUsersData.state) {
-                case PLAY:
-                    long now = new Date().getTime();
-                    long elapsed = now - thisUsersData.current.started;
-                    if ((int)(elapsed / 1000L) >= thisUsersData.current.length) {
-                        if (thisUsersData.next == null) {
-                            thisUsersData.position = 0;
-                            thisUsersData.state = State.PAUSE;
-                            break;
-                        }
-                        next(thisUsersData);
+                /**
+                 * Is it time to play the next track?
+                 */
+                long now = new Date().getTime();
+                long elapsed = now - thisUsersData.current.started;
+                if ((int)(elapsed / 1000L) >= thisUsersData.current.length) {
+                    if (thisUsersData.next == null) {
+                        thisUsersData.position = 0;
+                        thisUsersData.state = State.PAUSE;
+                        break;
                     }
-            }
-
-            thisUsersData.current_time = new Date().getTime();
-
-            String json =
-                    new Gson().toJson(thisUsersData);
-            int length = json.length();
-            res.getWriter().write(json);
-            res.setContentType("application/json");
-            res.setContentLength(length);
+                    next(thisUsersData);
+                }
         }
+
+        /**
+         * Update response timestamp
+         */
+        thisUsersData.current_time = new Date().getTime();
+
+        /**
+         * Build response
+         */
+        String json = new Gson().toJson(thisUsersData);
+        int length = json.length();
+
+        /**
+         * Return json data
+         */
+        res.getWriter().write(json);
+        res.setContentType("application/json");
+        res.setContentLength(length);
     }
 
+    /**
+     * Processes authentication and update requests
+     * @param req
+     * @param res
+     * @throws IOException
+     */
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse res) throws IOException {
 
+        /**
+         * If no tracks are available, add them
+         */
         if (availableTracks.size() == 0) setAvailableTracks();
 
-        LOG.info("post request made");
-
+        /**
+         * Is this an authentication request?
+         */
         if (req.getParameterMap().containsKey("auth")) {
 
+            /**
+             * Collect user data from request
+             */
             String firstName = req.getParameter("first_name");
             String lastInitial = req.getParameter("last_initial");
             String deviceId = req.getParameter("device_id");
-
-            LOG.info("processing auth request from "+ firstName +" "+ lastInitial +" - "+ deviceId);
-
             String key = firstName + lastInitial;
 
+            /**
+             * Does user already exist?
+             */
             if (users.containsKey(key)) {
 
+                /**
+                 * Is this device already known?
+                 */
                 Device newDevice = new Device();
                 List<Device> existing = users.get(key).response.devices;
                 for (int i = 0; i < existing.size(); i++) {
@@ -85,6 +128,10 @@ public class Servlet extends HttpServlet {
                         return;
                     }
                 }
+
+                /**
+                 * Add the new deivce to users known devices list
+                 */
                 newDevice.id = existing.size();
                 newDevice.is_playing = false;
                 newDevice.name = deviceId;
@@ -92,105 +139,235 @@ public class Servlet extends HttpServlet {
                 return;
             }
 
+            /**
+             * Setup new response object
+             */
             Response newResponse = getNewResponseObject();
+
+            /**
+             * Add this device as first of known deivces
+             */
             Device newDevice = new Device();
             newDevice.id = 0;
+
+            /**
+             * Set as default device currently playing
+             */
             newDevice.is_playing = true;
             newDevice.name = deviceId;
             newResponse.devices.add(newDevice);
+
+            /**
+             * Build new user object
+             */
             User newUser = new User();
             newUser.first_name = firstName;
             newUser.last_initial = lastInitial;
             newUser.response = newResponse;
+
+            /**
+             * Save new user
+             */
             users.put(key, newUser);
             return;
         }
 
-
+        /**
+         * Is this an update request?
+         */
         if (req.getParameterMap().containsKey("update")) {
 
+            /**
+             * Retrieve user id from request params
+             */
             String user = req.getParameter("user");
 
-            if (user != null &&
-                    users.containsKey(user)) {
+            /**
+             * Is this a known users?
+             */
+            if (user == null || ! users.containsKey(user)) return;
 
-                Response thisUsersData = users.get(user).response;
-                State state = ! req.getParameterMap().containsKey("state") ? thisUsersData.state : State.valueOf(req.getParameter("state"));
-                boolean next = ! req.getParameterMap().containsKey("next") ? false : Boolean.parseBoolean(req.getParameter("next"));
-                boolean previous = ! req.getParameterMap().containsKey("previous") ? false : Boolean.parseBoolean(req.getParameter("previous"));
-                String device_id = ! req.getParameterMap().containsKey("device_id") ? "" : req.getParameter("device_id");
-                State previousState = thisUsersData.state;
-                thisUsersData.state = state;
+            /**
+             * Get this users data out of memory
+             */
+            Response thisUsersData = users.get(user).response;
 
-                LOG.info("processing update request from "+ user +" - "+ device_id);
+            /**
+             * Update state, if present in request params
+             */
+            State state = ! req.getParameterMap().containsKey("state") ? thisUsersData.state : State.valueOf(req.getParameter("state"));
 
-                switch (state) {
-                    case PLAY:
-                        if (previousState == State.PLAY) break;
-                        long elapsed = ((long) thisUsersData.position) * 1000L;
-                        long historicalStart = new Date().getTime() - elapsed;
-                        thisUsersData.current.started = historicalStart;
-                        break;
-                    case PAUSE:
-                        if (previousState == State.PAUSE) break;
-                        long timeElapsed = new Date().getTime() - thisUsersData.current.started;
-                        thisUsersData.position = (int)(timeElapsed / 1000L);
-                }
+            /**
+             * Update next, if preset in request params
+             */
+            boolean next = ! req.getParameterMap().containsKey("next") ? false : Boolean.parseBoolean(req.getParameter("next"));
 
-                if ( ! device_id.equals("")) {
-                    for (Device device : thisUsersData.devices) {
-                        if (device.is_playing &&
-                                !device.name.equals(device_id)) {
-                            for (Device device2 : thisUsersData.devices) {
-                                if (device2.name.equals(device_id)) {
-                                    device2.is_playing = true;
-                                    continue;
-                                }
-                                if (device2.is_playing) {
-                                    device2.is_playing = false;
-                                }
+            /**
+             * Update previous, if preset in request params
+             */
+            boolean previous = ! req.getParameterMap().containsKey("previous") ? false : Boolean.parseBoolean(req.getParameter("previous"));
+
+            /**
+             * Update device id, if preset in request params
+             */
+            String device_id = ! req.getParameterMap().containsKey("device_id") ? "" : req.getParameter("device_id");
+
+            /**
+             * Take note of previous state
+             */
+            State previousState = thisUsersData.state;
+
+            /**
+             * Update state record
+             */
+            thisUsersData.state = state;
+
+            switch (state) {
+                case PLAY:
+
+                    /**
+                     * Don't make updates if state is the same
+                     */
+                    if (previousState == State.PLAY) break;
+
+                    /**
+                     * If starting track from paused state, calculate the time that the track "would have started" based on the saved position. Then make that the started time of the current track.
+                     */
+                    long elapsed = ((long) thisUsersData.position) * 1000L;
+                    long historicalStart = new Date().getTime() - elapsed;
+                    thisUsersData.current.started = historicalStart;
+                    break;
+
+                case PAUSE:
+
+                    /**
+                     * Don't make updates if state is the same
+                     */
+                    if (previousState == State.PAUSE) break;
+
+                    /**
+                     * If stoping track, calculate time elapsed, set that as the position record
+                     */
+                    long timeElapsed = new Date().getTime() - thisUsersData.current.started;
+                    thisUsersData.position = (int)(timeElapsed / 1000L);
+            }
+
+            /**
+             * Update playing device if preset in update request
+             */
+            if ( ! device_id.equals("")) {
+                for (Device device : thisUsersData.devices) {
+                    if (device.is_playing &&
+                            !device.name.equals(device_id)) {
+                        for (Device device2 : thisUsersData.devices) {
+                            if (device2.name.equals(device_id)) {
+                                device2.is_playing = true;
+                                continue;
                             }
-                            break;
+                            if (device2.is_playing) {
+                                device2.is_playing = false;
+                            }
                         }
+                        break;
                     }
                 }
+            }
 
-                if (next) {
-                    next(thisUsersData);
-                    return;
+            /**
+             * Switch to next track
+             */
+            if (next) {
+                next(thisUsersData);
+                return;
+            }
+
+            /**
+             * Switch to previous track
+             */
+            if (previous) {
+
+                /**
+                 * Make previous track current track
+                 */
+                CurrentTrack newCurrentTrack = thisUsersData.previous.toCurrentTrack();
+
+                /**
+                 * Set new started time
+                 */
+                newCurrentTrack.started = new Date().getTime();
+
+                /**
+                 * Make current track next track
+                 */
+                Track newNextTrack = thisUsersData.current.toTrack();
+                if (newCurrentTrack.id - 1 >= 0) {
+                    /**
+                     * Save this users response record with new previous track
+                     */
+                    Track newPreviousTrack = availableTracks.get(newCurrentTrack.id -1);
+                    thisUsersData.previous = newPreviousTrack;
+                } else {
+                    /**
+                     * Set this users response record to have no previous track, since none exists
+                     */
+                    thisUsersData.previous = null;
                 }
 
-                if (previous) {
-                    CurrentTrack newCurrentTrack = thisUsersData.previous.toCurrentTrack();
-                    newCurrentTrack.started = new Date().getTime();
-                    Track newNextTrack = thisUsersData.current.toTrack();
-                    if (newCurrentTrack.id - 1 >= 0) {
-                        Track newPreviousTrack = availableTracks.get(newCurrentTrack.id -1);
-                        thisUsersData.previous = newPreviousTrack;
-                    } else {
-                        thisUsersData.previous = null;
-                    }
-                    thisUsersData.current = newCurrentTrack;
-                    thisUsersData.next = newNextTrack;
-                }
+                /**
+                 * Save users response record with new current and next tracks
+                 */
+                thisUsersData.current = newCurrentTrack;
+                thisUsersData.next = newNextTrack;
             }
         }
     }
 
+    /**
+     * Determines next track based on a users response object
+     * @param data
+     */
     private static final void next(Response data) {
+
+        /**
+         * Make next track new current track
+         */
         CurrentTrack newCurrentTrack = data.next.toCurrentTrack();
+
+        /**
+         * Set new started time
+         */
         newCurrentTrack.started = new Date().getTime();
         if (availableTracks.size() > newCurrentTrack.id +1) {
+
+            /**
+             * Set new next track from list of available tracks
+             */
             Track newNextTrack = availableTracks.get(newCurrentTrack.id +1);
             data.next = newNextTrack;
         } else {
+
+            /**
+             * Set next track to null since there is none
+             */
             data.next = null;
         }
+
+        /**
+         * Set current track to be previous
+         */
         Track newPreviousTrack = data.current;
+
+        /**
+         * Save new previous and current tracks
+         */
         data.previous = newPreviousTrack;
         data.current = newCurrentTrack;
     }
 
+    /**
+     * Builds default response object
+     * @return
+     */
     private static final Response getNewResponseObject() {
         Response response = new Response();
         response.previous = availableTracks.get(0);
@@ -203,6 +380,9 @@ public class Servlet extends HttpServlet {
         return response;
     }
 
+    /**
+     * Defines what tracks are available
+     */
     private static final void setAvailableTracks() {
 
         Track blackSugar = new Track();

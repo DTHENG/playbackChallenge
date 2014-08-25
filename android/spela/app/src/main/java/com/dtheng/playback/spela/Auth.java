@@ -23,6 +23,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * author : Daniel Thengvall
+ */
 public class Auth extends Base {
 
     private Button playButton;

@@ -5,20 +5,14 @@ import android.content.ContextWrapper;
 
 import com.google.gson.Gson;
 
-import java.io.BufferedReader;
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.lang.reflect.Type;
-import java.util.zip.GZIPInputStream;
-import java.util.zip.GZIPOutputStream;
 
 /**
- * Created by danielthengvall on 8/22/14.
+ * author : Daniel Thengvall
  */
 public class IO {
     public static boolean set(Object object, String filename, ContextWrapper context) {
@@ -37,9 +31,6 @@ public class IO {
                     char intToChar = (char)hexToInt;
                     builder.append(Integer.toHexString(asJsonString.charAt(i)) +"-");
                 }
-                //String compressed = asJsonString;//compress(asJsonString);
-
-                System.out.println(asJsonString);
                 stream.write(builder.toString().getBytes());
             }
             stream.close();
@@ -52,13 +43,7 @@ public class IO {
         return false;
     }
 
-
     public static Object get(String filename, Type type, ContextWrapper context) {
-        /*try {
-            Thread.sleep(2000);
-        } catch (InterruptedException ie) {
-            ie.printStackTrace();
-        }*/
         try {
             FileInputStream stream = context.openFileInput(filename);
             int count;
@@ -67,7 +52,7 @@ public class IO {
                 jsonStringData.append(Character.toString((char)count));
             }
             stream.close();
-            String decompressed = jsonStringData.toString();//decompress(jsonStringData.toString());
+            String decompressed = jsonStringData.toString();
             if (decompressed.equals("")) {
                 return null;
             }
@@ -84,7 +69,6 @@ public class IO {
                 nfe.printStackTrace();
                 return null;
             }
-
             return new Gson().fromJson(builder.toString(), type);
         } catch (IOException ie) {
             ie.printStackTrace();
